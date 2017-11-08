@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Secure1.Models;
 using Secure1.Models.ManageViewModels;
 using Secure1.Services;

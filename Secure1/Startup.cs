@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Secure1.Data;
 using Secure1.Models;
 using Secure1.Services;
+using Secure1.Models.UniversalModels;
 
 namespace Secure1
 {
@@ -33,8 +34,11 @@ namespace Secure1
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+				services.AddOptions();
+				services.Configure<EmailOptions>(options => Configuration.GetSection("EmailOptions").Bind(options));
+
+			// Add application services.
+				services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
         }
