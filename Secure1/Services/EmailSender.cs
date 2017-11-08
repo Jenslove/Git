@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Secure1.Models.UniversalModels;
+using Serilog;
 
 namespace Secure1.Services
 {
@@ -41,6 +42,7 @@ namespace Secure1.Services
 				//smtp.Credentials = new NetworkCredential("mike.keena@thekeenas.com", "astrid");
 				//smtp.Send(mail);
 				try {
+					Log.Debug("EmailSender");
 					return smtp.SendMailAsync(mail);
 				}catch(Exception e) {
 					throw e;

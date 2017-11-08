@@ -12,6 +12,7 @@ using Secure1.Data;
 using Secure1.Models;
 using Secure1.Services;
 using Secure1.Models.UniversalModels;
+using Secure1.Helpers;
 
 namespace Secure1
 {
@@ -27,8 +28,12 @@ namespace Secure1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				services.AddMvc(
+					config => {
+						config.Filters.Add(typeof(CustomGlobalExceptionHandler));
+					});
+
+				services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -39,28 +44,21 @@ namespace Secure1
 
 			// Add application services.
 				services.AddTransient<IEmailSender, EmailSender>();
-
-            services.AddMvc();
-        }
+			}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()){
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
-            }
-            else
-            {
+            }else{
                 app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
-
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
