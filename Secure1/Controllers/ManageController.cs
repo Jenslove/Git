@@ -122,9 +122,12 @@ namespace Secure1.Controllers
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
             var email = user.Email;
-            await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
-
-            StatusMessage = "Verification email sent. Please check your email.";
+			try {
+				await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
+				StatusMessage = "Verification email sent. Please check your email.";
+			} catch(Exception e) {
+				StatusMessage = "Exception";
+			}
             return RedirectToAction(nameof(Index));
         }
 

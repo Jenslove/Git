@@ -53,11 +53,6 @@ namespace Secure1
 				Log.Error(ex, "Exception");
 			}
 		}
-
-		//public static IWebHost BuildWebHost(string[] args) =>
-		//    WebHost.CreateDefaultBuilder(args)
-		//        .UseStartup<Startup>()
-		//        .Build();
 		public static IWebHost BuildWebHost(string[] args) =>
 		WebHost.CreateDefaultBuilder(args)
 			 .UseKestrel()

@@ -23,7 +23,7 @@ namespace Secure1.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
+        private readonly ILogger _logger;		//regular logger is used here as this is mostly template code. There is no harm
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -228,10 +228,20 @@ namespace Secure1.Controllers
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
+							try {
+								await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+							} catch(Exception e) {
+								string t = e.GetType().Name;
+								switch (e.GetType().Name) {
+									case "SmtpFailedRecipientException":
+										_logger.LogError(e, String.Format("There was an exception with email:{0}", model.Email));
+										return RedirectToLocal(returnUrl);
+										break;
+									default:
+										break;
+								}
+							}
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
