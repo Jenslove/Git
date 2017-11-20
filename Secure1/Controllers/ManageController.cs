@@ -126,7 +126,7 @@ namespace Secure1.Controllers
 				await _emailSender.SendEmailConfirmationAsync(email, callbackUrl);
 				StatusMessage = "Verification email sent. Please check your email.";
 			} catch(Exception e) {
-				StatusMessage = "Exception";
+				StatusMessage = "Exception: " + e.Message;
 			}
             return RedirectToAction(nameof(Index));
         }

@@ -73,5 +73,10 @@ namespace Secure1.Models.UniversalModels
 		/// The SMTP address.
 		/// </value>
 		public string SmtpAddress { get; set; }
+
+		public bool UseDefaultCredentials { get; set; }
+		public string CredentialID { get; set; }
+		public string CredentialPW { get; set; }
+
 	}
 }

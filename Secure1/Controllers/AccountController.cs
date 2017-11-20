@@ -236,9 +236,10 @@ namespace Secure1.Controllers
 									case "SmtpFailedRecipientException":
 										_logger.LogError(e, String.Format("There was an exception with email:{0}", model.Email));
 										return RedirectToLocal(returnUrl);
-										break;
+										//break;
 									default:
-										break;
+										throw e;
+										//break;
 								}
 							}
                     await _signInManager.SignInAsync(user, isPersistent: false);

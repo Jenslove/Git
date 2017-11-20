@@ -38,11 +38,10 @@ namespace Secure1.Services
 				SmtpClient smtp = new SmtpClient(_emailOptions.SmtpAddress, _emailOptions.Port); //("smtpout.secureserver.net", 465)) {
 				smtp.EnableSsl = _emailOptions.UseSsl;
 				smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-				smtp.UseDefaultCredentials = false;
-				//smtp.Credentials = new NetworkCredential("mike.keena@thekeenas.com", "astrid");
-				//smtp.Send(mail);
+				smtp.UseDefaultCredentials = _emailOptions.UseDefaultCredentials;
+				smtp.Credentials = new NetworkCredential(_emailOptions.CredentialID, _emailOptions.CredentialPW);
 				try {
-					Log.Debug("EmailSender");
+					Log.Information(String.Format("Async Email. Add: {0};", ToEmail));
 					return smtp.SendMailAsync(mail);
 				}catch(Exception e) {
 					throw e;
@@ -66,10 +65,10 @@ namespace Secure1.Services
 			SmtpClient smtp = new SmtpClient(_emailOptions.SmtpAddress, _emailOptions.Port); //("smtpout.secureserver.net", 465)) {
 			smtp.EnableSsl = _emailOptions.UseSsl;
 			smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-			smtp.UseDefaultCredentials = false;
-			//smtp.Credentials = new NetworkCredential("mike.keena@thekeenas.com", "astrid");
-			//smtp.Send(mail);
+			smtp.UseDefaultCredentials = _emailOptions.UseDefaultCredentials;
+			smtp.Credentials = new NetworkCredential(_emailOptions.CredentialID, _emailOptions.CredentialPW);
 			try {
+				Log.Information(String.Format("Blocking Email. Add: {0};", ToEmail));
 				smtp.Send(mail);
 			} catch (Exception e) {
 				throw e;
