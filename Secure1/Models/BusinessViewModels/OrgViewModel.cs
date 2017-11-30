@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Secure1.Models.BusinessViewModels
 {
-    public class Org {
+    public class OrgViewModel {
 		[Required]
 		[EmailAddress]
 		[Display(Name = "Email")]
