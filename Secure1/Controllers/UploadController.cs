@@ -78,7 +78,7 @@ namespace Secure1.Controllers
 						}
 					}
 				}
-				// Don't rely on or trust the FileName property without validation.
+				// Don't rely on or trust the FileName property without validation.  
 				ViewData["Message"] = ret;
 			} else {
 				ViewData["Message"] = "Something was wrong with the submitted information. Please check input and try again.";

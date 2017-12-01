@@ -19,6 +19,6 @@ namespace Secure1.Models.BusinessViewModels
 
 		[Required]
 		[Display(Name = "FilePath")]
-		public List<IFormFile> FilePath { get; set; }
+		public List<IFormFile> FilePath { get; set; }  
 	}
 }
