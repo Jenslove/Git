@@ -12,6 +12,7 @@ using Secure1.Data;
 using Secure1.Models;
 using Secure1.Services;
 using Secure1.Models.UniversalModels;
+using Secure1.DataBusiness;
 using Secure1.Helpers;
 
 namespace Secure1
@@ -33,9 +34,10 @@ namespace Secure1
 						config.Filters.Add(typeof(CustomGlobalExceptionHandler));
 					});
 
-				services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SecConnection")));
+				services.AddDbContext<BizDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BizConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+			services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

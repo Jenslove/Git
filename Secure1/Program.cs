@@ -35,7 +35,7 @@ namespace Secure1
 				 .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
 				 .Enrich.FromLogContext()
 				 .WriteTo.Console()
-				 .WriteTo.MSSqlServer(connectionString: configuration.GetConnectionString("DefaultConnection"),
+				 .WriteTo.MSSqlServer(connectionString: configuration.GetConnectionString("BizConnection"),
 												tableName: "Log",
 												autoCreateSqlTable: true,
 												period: new TimeSpan(0, 0, 5)

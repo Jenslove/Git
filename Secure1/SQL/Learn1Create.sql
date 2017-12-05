@@ -1,4 +1,4 @@
-﻿USE [IA-DB-1];
+﻿USE [IA-DB-2];
 GO
 -----------------------
 SET ANSI_NULLS ON;
@@ -22,12 +22,12 @@ GO
 CREATE TABLE [dbo].[Organization] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
 	[OrgName]		VARCHAR(150)	NOT NULL,
-   [CreateDate]	DATETIME			NOT NULL,
+   [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[Address1]		VARCHAR(150)	NOT NULL,
 	[Address2]		VARCHAR(150)	NULL,
 	[City]			VARCHAR(75)		NOT NULL,
 	[State]			VARCHAR(2)		NOT NULL,
-	[Zip]				VARCHAR(10)			NOT NULL,
+	[Zip]				VARCHAR(10)		NOT NULL,
 	[Telephone]		VARCHAR(15)		NULL,
 	[Email]			VARCHAR(75)		NULL
 );
@@ -36,8 +36,8 @@ GO
 CREATE TABLE [dbo].[User] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
 	[Organization]	NUMERIC (18)	NULL	FOREIGN KEY REFERENCES dbo.[Organization](ID),
-   [CreateDate]	DATETIME			NOT NULL,
-	[UserID]			VARCHAR(25)			NOT NULL,	--LINK TO SECURITY TABLES
+   [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
+	[UserID]			VARCHAR(25)		NOT NULL,	--LINK TO SECURITY TABLES
 	--[Password]		VARCHAR(25)		NOT NULL, --NOT NEEDED AS THIS IS CARRIED IN SECURITY TABLES
 	[FirstName]		VARCHAR(75)		NOT NULL,
 	[MidName]		VARCHAR(75)		NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE [dbo].[User] (
 	[Address2]		VARCHAR(150)	NULL,
 	[City]			VARCHAR(75)		NOT NULL,
 	[State]			VARCHAR(2)		NOT NULL,
-	[Zip]				VARCHAR(10)			NOT NULL,
+	[Zip]				VARCHAR(10)		NOT NULL,
 	[Telephone]		VARCHAR(15)		NULL,
 	[Email]			VARCHAR(75)		NOT NULL,
 	[Question1]		VARCHAR(75)		NOT NULL,
@@ -58,9 +58,9 @@ CREATE TABLE [dbo].[User] (
 	[CCNumber]		VARCHAR(75)		NOT NULL,
 	[CCAddress1]	VARCHAR(150)	NOT NULL,
 	[CCAddress2]	VARCHAR(150)	NULL,
-	[CCCity]			VARCHAR(75)			NOT NULL,
+	[CCCity]			VARCHAR(75)		NOT NULL,
 	[CCState]		VARCHAR(2)		NOT NULL,
-	[CCZip]			VARCHAR(10)		NOT NULL,
+	[CCZip]			VARCHAR(10)		NOT NULL
 );
 GO
 -----------------------
@@ -68,31 +68,31 @@ CREATE TABLE [dbo].[Project] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
 	[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
 	[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
-   [CreateDate]	DATETIME			NOT NULL,
+   [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[Type]			VARCHAR(25)		NOT NULL,
 	[Desc]			VARCHAR(1000)	NOT NULL,
 	[Comment]		VARCHAR(500)	NOT NULL,
-	[Industry]		VARCHAR(500)	NOT NULL,
+	[Industry]		VARCHAR(500)	NOT NULL
 );
 GO
 -----------------------
 CREATE TABLE [dbo].[Thing] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
 	[Project]		NUMERIC (18)	NOT NULL FOREIGN KEY REFERENCES dbo.[Project](ID),
-   [CreateDate]	DATETIME			NOT NULL,
+   [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[Name]			VARCHAR(150)	NOT NULL,
 	[Type]			VARCHAR(25)		NOT NULL,
 	[Size]			INT				NOT NULL,
 	[Desc]			VARCHAR(1000)	NOT NULL,
 	[Comment]		VARCHAR(500)	NOT NULL,
-	[Focus]			VARCHAR(500)	NOT NULL,
+	[Focus]			VARCHAR(500)	NOT NULL
 );
 GO
 -----------------------
 CREATE TABLE [dbo].[Version] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
    [Thing]			NUMERIC (18)	NOT NULL FOREIGN KEY REFERENCES dbo.[Thing](ID),
-   [CreateDate]	DATETIME			NOT NULL,
+   [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[DisplayName]	VARCHAR(150)	NOT NULL,
 	[Name]			VARCHAR(150)	NOT NULL,
 	[FullPath]		VARCHAR(150)	NOT NULL,
@@ -234,4 +234,29 @@ INSERT INTO [dbo].[Project] (
 	'INDUSTRY'		--[Industry]		VARCHAR(500)	NOT NULL,
 );
 SET IDENTITY_INSERT [dbo].[Project] OFF
+GO
+-----------------------
+SET IDENTITY_INSERT [dbo].[Thing] ON
+INSERT INTO [dbo].[Thing] (
+   [ID],
+	[Project],
+   [CreateDate],
+	[Name],
+	[Type],
+	[Size],
+	[Desc],
+	[Comment],
+	[Focus]
+	) VALUES (
+   1,					--[ID],
+	1,					--[Project],
+   GETDATE(),		--[CreateDate],
+	'Thing 1',		--[Name],
+	'png',			--[Type],
+	512,				--[Size],
+	'Thing 1 Desc',--[Desc],
+	'Thing 1 Com',	--[Comment],
+	'Thing 1 Foc'	--[Focus]
+);
+SET IDENTITY_INSERT [dbo].[Thing] OFF
 GO

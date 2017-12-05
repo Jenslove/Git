@@ -7,23 +7,35 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Secure1.Models.BusinessViewModels;
+using Secure1.DataBusiness;
 using Serilog;
 
 namespace Secure1.Controllers
 {
 	[Authorize]
-	[Route("[controller]/[action]")]
-	public class UploadController : Controller
-    {
+	public class UploadController : Controller {
+		private BizDbContext _context;
+		public UploadController(BizDbContext context) {
+			_context = context;
+		}
         // GET: Upload
         public ActionResult Index()
         {
 			ViewData["Message"] = "Getting upload working.";
-			return View();
+
+			List<DataBusiness.Version> versionList = new List<DataBusiness.Version>();
+			versionList = (from version in _context.Version
+								select version).ToList();
+			var model = new UploadViewModel() {
+				ListOfVersions = versionList
+			};
+
+			return View(model);
         }
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Route("[controller]/[action]")]
 		public async Task<IActionResult> UploadFile(UploadViewModel model, string returnUrl = null) {
 			ViewData["ReturnUrl"] = returnUrl;
 			List<IFormFile> files = new List<IFormFile>(model.FilePath);
@@ -40,7 +52,7 @@ namespace Secure1.Controllers
 						using (var stream = new FileStream(filePath, FileMode.Create)) {
 							await formFile.CopyToAsync(stream);
 							msg = String.Format("File {0} from at {1} was successfully uploaded to {2}.", formFile.FileName, formFile.Name, filePath);
-							Log.Information(msg);
+							Serilog.Log.Information(msg);
 							ret += msg + Environment.NewLine;
 						}
 					}
@@ -49,7 +61,7 @@ namespace Secure1.Controllers
 				ViewData["Message"] = ret;
 			} else {
 				ViewData["Message"] = "Something was wrong with the submitted information. Please check input and try again.";
-				Log.Error(msg);
+				Serilog.Log.Error(msg);
 			}
 			return View("Index");
 			//return RedirectToAction(nameof(UploadController.Index), "Upload");
@@ -57,24 +69,35 @@ namespace Secure1.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Route("[controller]/[action]")]
 		public async Task<IActionResult> UploadFileByte(UploadViewModel model, string returnUrl = null) {
 			ViewData["ReturnUrl"] = returnUrl;
 			List<IFormFile> files = new List<IFormFile>(model.FilePath);
-			string filePath = "";
 			string msg = "";
 			string ret = "";
+			int loc = 0;
+			string fileName = "";
 			if (ModelState.IsValid) {
-				//long size = files.Sum(f => f.Length);
-				//string loggedUser = User.Identity.Name;
-
 				foreach (var formFile in files) {
 					if (formFile.Length > 0) {
-						filePath = Path.Combine(Directory.GetCurrentDirectory(), "Business", (Guid.NewGuid().ToString() + "-" + DateTime.Now.ToString("yyyyMMddHHmmssff")));
-						using (var stream = new FileStream(filePath, FileMode.Create)) {
-							await formFile.CopyToAsync(stream);
-							msg = String.Format("File {0} from at {1} was successfully uploaded to {2}.", formFile.FileName, formFile.Name, filePath);
-							Log.Information(msg);
-							ret += msg + Environment.NewLine;
+						loc = formFile.FileName.LastIndexOf('\\');
+						fileName = formFile.FileName.Substring(loc+1);
+						using (var memoryStream = new MemoryStream()) {
+							await formFile.CopyToAsync(memoryStream);
+							var version = new DataBusiness.Version {
+								Thing = 1,
+								CreateDate = DateTime.Now,
+								DisplayName = model.DisplayName,
+								Name = fileName,
+								FullPath = formFile.FileName,
+								FileType = formFile.ContentType,
+								Size = (int)formFile.Length,
+								Desc = model.Desc,
+								Comment = model.Comment,
+								Item = memoryStream.ToArray()
+							};
+							_context.Version.Add(version);
+							await _context.SaveChangesAsync();
 						}
 					}
 				}
@@ -82,12 +105,26 @@ namespace Secure1.Controllers
 				ViewData["Message"] = ret;
 			} else {
 				ViewData["Message"] = "Something was wrong with the submitted information. Please check input and try again.";
-				Log.Error(msg);
+				Serilog.Log.Error(msg);
 			}
 			return View("Index");
 			//return RedirectToAction(nameof(UploadController.Index), "Upload");
 		}
 
+		[HttpGet]
+		//[ValidateAntiForgeryToken]
+		public ActionResult DownloadFileByte(string id) {
+			//return View("Index");
+			int fileID = 0;
+			if (!int.TryParse("1", out fileID)) {
+				ViewData["Message"] = "Invalid File Input. Please check you selection and try again. If this persists please contact Support.";
+				return View("Index");
+			}
+			DataBusiness.Version downloadVersion = (from version in _context.Version
+																 where version.Id == fileID
+																 select version).First();
+			return File(downloadVersion.Item, downloadVersion.FileType,downloadVersion.Name);
+		}
 		#region OtherPrebuilt
 		// GET: Upload/Details/5
 		public ActionResult Details(int id)

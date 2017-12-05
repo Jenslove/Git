@@ -6,19 +6,21 @@ namespace Secure1.Models.BusinessViewModels
 {
     public class UploadViewModel    {
 		[Required]
-		[Display(Name = "Name")]
-		public string Name { get; set; }
+		[Display(Name = "DisplayName")]
+		public string DisplayName { get; set; }
 
 		[Required]
-		[Display(Name = "Age")]
-		public int Age { get; set; }
+		[Display(Name = "Desc")]
+		public string Desc { get; set; } = "";
 
 		[Required]
-		[Display(Name = "Zipcode")]
-		public int Zipcode { get; set; }
+		[Display(Name = "Comment")]
+		public string Comment { get; set; } = "";
 
 		[Required]
 		[Display(Name = "FilePath")]
-		public List<IFormFile> FilePath { get; set; }  
+		public List<IFormFile> FilePath { get; set; }
+
+		public List<Secure1.DataBusiness.Version> ListOfVersions { get; set; }
 	}
 }
