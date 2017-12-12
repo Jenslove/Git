@@ -228,10 +228,29 @@ INSERT INTO [dbo].[Project] (
 	1,					--[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
 	1,					--[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
     GETDATE(),		--[CreateDate]	DATETIME		NOT NULL,
-	'TXT',			--[Type]			VARCHAR(25)		NOT NULL,
-	'DESCRIPTION',	--[Desc]			VARCHAR(1000)	NOT NULL,
-	'COMMENT',		--[Comment]		VARCHAR(500)	NOT NULL,
-	'INDUSTRY'		--[Industry]		VARCHAR(500)	NOT NULL,
+	'Proj1',			--[Type]			VARCHAR(25)		NOT NULL,
+	'ProjDesc1',	--[Desc]			VARCHAR(1000)	NOT NULL,
+	'ProjCom1',		--[Comment]		VARCHAR(500)	NOT NULL,
+	'ProjInd1'		--[Industry]		VARCHAR(500)	NOT NULL,
+);
+INSERT INTO [dbo].[Project] (
+   [ID],
+	[User],
+	[Organization],
+   [CreateDate],
+	[Type],
+	[Desc],
+	[Comment],
+	[Industry]
+	) VALUES (
+   2,					--[ID]			NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	1,					--[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
+	1,					--[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
+    GETDATE(),		--[CreateDate]	DATETIME		NOT NULL,
+	'Proj2',			--[Type]			VARCHAR(25)		NOT NULL,
+	'ProjDesc2',	--[Desc]			VARCHAR(1000)	NOT NULL,
+	'ProjCom2',		--[Comment]		VARCHAR(500)	NOT NULL,
+	'ProjInd2'		--[Industry]		VARCHAR(500)	NOT NULL,
 );
 SET IDENTITY_INSERT [dbo].[Project] OFF
 GO
@@ -253,10 +272,213 @@ INSERT INTO [dbo].[Thing] (
    GETDATE(),		--[CreateDate],
 	'Thing 1',		--[Name],
 	'png',			--[Type],
-	512,				--[Size],
+	100,				--[Size],
 	'Thing 1 Desc',--[Desc],
 	'Thing 1 Com',	--[Comment],
 	'Thing 1 Foc'	--[Focus]
 );
+INSERT INTO [dbo].[Thing] (
+   [ID],
+	[Project],
+   [CreateDate],
+	[Name],
+	[Type],
+	[Size],
+	[Desc],
+	[Comment],
+	[Focus]
+	) VALUES (
+   2,					--[ID],
+	2,					--[Project],
+   GETDATE(),		--[CreateDate],
+	'Thing 2',		--[Name],
+	'png',			--[Type],
+	200,				--[Size],
+	'Thing 2 Desc',--[Desc],
+	'Thing 2 Com',	--[Comment],
+	'Thing 2 Foc'	--[Focus]
+);
+INSERT INTO [dbo].[Thing] (
+   [ID],
+	[Project],
+   [CreateDate],
+	[Name],
+	[Type],
+	[Size],
+	[Desc],
+	[Comment],
+	[Focus]
+	) VALUES (
+   3,					--[ID],
+	2,					--[Project],
+   GETDATE(),		--[CreateDate],
+	'Thing 3',		--[Name],
+	'png',			--[Type],
+	300,				--[Size],
+	'Thing 3 Desc',--[Desc],
+	'Thing 3 Com',	--[Comment],
+	'Thing 3 Foc'	--[Focus]
+);
 SET IDENTITY_INSERT [dbo].[Thing] OFF
 GO
+-------------------------
+--SET IDENTITY_INSERT [dbo].[Version] ON
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   1,						--[ID],
+--   1,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp1',				--[DisplayName],
+--	'Name1',				--[Name],
+--	'\\down\path1',	--[FullPath],
+--	'type1',				--[FileType],
+--	100,					--[Size],
+--	'Ver Disc 1',		--[Desc],
+--	'Ver Com 1',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   2,						--[ID],
+--   2,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp2',				--[DisplayName],
+--	'Name2',				--[Name],
+--	'\\down\path2',	--[FullPath],
+--	'type2',				--[FileType],
+--	200,					--[Size],
+--	'Ver Disc 2',		--[Desc],
+--	'Ver Com 2',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   3,						--[ID],
+--   2,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp3',				--[DisplayName],
+--	'Name3',				--[Name],
+--	'\\down\path3',	--[FullPath],
+--	'type3',				--[FileType],
+--	300,					--[Size],
+--	'Ver Disc 3',		--[Desc],
+--	'Ver Com 3',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   4,						--[ID],
+--   3,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp4',				--[DisplayName],
+--	'Name4',				--[Name],
+--	'\\down\path4',	--[FullPath],
+--	'type4',				--[FileType],
+--	400,					--[Size],
+--	'Ver Disc 4',		--[Desc],
+--	'Ver Com 4',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   5,						--[ID],
+--   3,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp5',				--[DisplayName],
+--	'Name5',				--[Name],
+--	'\\down\path5',	--[FullPath],
+--	'type5',				--[FileType],
+--	500,					--[Size],
+--	'Ver Disc 5',		--[Desc],
+--	'Ver Com 5',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--INSERT INTO [dbo].[Version] (
+--   [ID],
+--   [Thing],
+--   [CreateDate],
+--	[DisplayName],
+--	[Name],
+--	[FullPath],
+--	[FileType],
+--	[Size],
+--	[Desc],
+--	[Comment],
+--	[Item]
+--	) VALUES (
+--   6,						--[ID],
+--   3,						--[Thing],
+--   GETDATE(),			--[CreateDate],
+--	'Disp6',				--[DisplayName],
+--	'Name6',				--[Name],
+--	'\\down\path6',	--[FullPath],
+--	'type6',				--[FileType],
+--	600,					--[Size],
+--	'Ver Disc 6',		--[Desc],
+--	'Ver Com 6',		--[Comment],
+--	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+--);
+--SET IDENTITY_INSERT [dbo].[Version] OFF
+--GO
+-----------------------
+-----------------------
+SELECT * FROM [Organization]
+SELECT * FROM [User]
+SELECT * FROM [Project]
+SELECT * FROM [Thing]
+SELECT * FROM [Version]

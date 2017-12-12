@@ -2,7 +2,16 @@
 @{
 	ViewData["Title"] = "Upload";
 }
-
+<head>
+	<style>
+		thead {color: green;}
+		tbody {color: orange;}
+		tfoot {color: red;}
+		table {border: 1px solid grey;
+			 border-collapse: collapse;
+		}
+	</style>
+</head>
 <h2>@ViewData["Title"]</h2>
 <h2>Upload files to server</h2>
 <div class="row">
@@ -72,25 +81,41 @@
 
 <div>
 	
-	<table>
+	<table style="" border: 1px solid red; border-collapse: collapse;>
+		<thead>
+			<tr>
+				<th>
+					ID
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					Type
+				</th>
+				<th>
+					Date Created
+				</th>
+			</tr>
+		</thead>
 		<tbody>
 			@foreach (var item in Model.ListOfVersions) {
 			<tr>
-				<tb>
-					@Html.DisplayFor(modelItem => @item.Id)
-				</tb>
-				<tb>
-					@Html.DisplayFor(modelItem => @item.Name)
-				</tb>
-				<tb>
-					@Html.DisplayFor(modelItem => item.FileType)
-				</tb>
-				<tb>
-					@Html.DisplayFor(modelItem => item.CreateDate)
-				</tb>
-				<tb>
+				<td>
+					@item.Id
+				</td>
+				<td>
+					@item.Name
+				</td>
+				<td>
+					@item.FileType
+				</td>
+				<td>
+					@item.CreateDate
+				</td>
+				<td>
 					<a asp-controller="Upload" asp-action="DownloadFileByte" asp-route-id="@item.Id">@item.Name</a>
-				</tb>
+				</td>
 			</tr>
 			}
 		</tbody>

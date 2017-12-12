@@ -1,0 +1,26 @@
+//Class
+function Version(ID, Item, VerName){
+	var self = this;
+  self.Id = ID;
+  self.ItemId = Item;
+  self.Name = VerName;
+}
+function Item(ID, Project, ItemName){
+	var self = this;
+  self.Id = ID;
+  self.ProjId = Project;
+  self.Name = ItemName;
+  self.Items = ko.oberserable(Version);
+}
+function Project(ID, User, ProjName){
+	var self = this;
+  self.Id = ID;
+  self.UserId = User;
+  self.Name = ProjName;
+  self.Items = ko.oberserable(Item);
+}
+
+function DashViewModel(){
+	var self = this;
+  self.
+}

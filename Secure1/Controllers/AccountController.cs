@@ -64,7 +64,7 @@ namespace Secure1.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("1-User {0} logged in.", model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -181,7 +181,7 @@ namespace Secure1.Controllers
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID {UserId} logged in with a recovery code.", user.Id);
+                _logger.LogInformation(String.Format("User with ID {UserId} logged in with a recovery code.", user.Id));
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
@@ -257,8 +257,8 @@ namespace Secure1.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+				_logger.LogInformation(String.Format("2-User {0} logged out.", User.Identity.Name));
+				return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         [HttpPost]

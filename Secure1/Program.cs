@@ -44,9 +44,6 @@ namespace Secure1
 				 .CreateLogger();
 
 			configuration = null; //cleaning up this instance 
-
-			Log.Debug("About to start Website.");
-
 			try {
 				host.Run();
 			} catch (Exception ex) {

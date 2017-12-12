@@ -97,6 +97,109 @@ VALUES
     'If panel lives up to expectation it should be 400% more efficient then anything sold today.',        -- Comment - varchar(500)
     'Utilities, Energy'         -- Industry - varchar(500)
 );
+INSERT INTO dbo.Project
+(
+    [User],
+    Organization,
+    CreateDate,
+    Type,
+    [Desc],
+    Comment,
+    Industry
+)
+VALUES
+(   1,      -- User - numeric(18, 0)
+    1,      -- Organization - numeric(18, 0)
+    GETDATE(), -- CreateDate - datetime
+    'Gas',        -- Type - varchar(25)
+    'Fuel Alt',        -- Desc - varchar(1000)
+    'Cars running on water.',        -- Comment - varchar(500)
+    'Auto, Energy'         -- Industry - varchar(500)
+);
+INSERT INTO dbo.Thing
+(
+    [Project],
+    [CreateDate],
+	[Name],
+    [Type],
+    [Desc],
+	[Size],
+    [Comment],
+    [Focus]
+)
+VALUES
+(   1,      -- Project - numeric(18, 0)
+    GETDATE(), -- CreateDate - datetime
+	'Thing1.txt',
+    'txt',        -- Type - varchar(25)
+    'Text1',        -- Desc - varchar(1000)
+	20,
+    'Text Comment 1',        -- Comment - varchar(500)
+    'Focus 1'         -- Focus - varchar(500)
+);
+INSERT INTO dbo.Thing
+(
+    [Project],
+    [CreateDate],
+	[Name],
+    [Type],
+    [Desc],
+	[Size],
+    [Comment],
+    [Focus]
+)
+VALUES
+(   2,      -- Project - numeric(18, 0)
+    GETDATE(), -- CreateDate - datetime
+	'Thing2.txt',
+    'txt2',        -- Type - varchar(25)
+    'Text2',        -- Desc - varchar(1000)
+	20,
+    'Text Comment 2',        -- Comment - varchar(500)
+    'Focus 2'         -- Focus - varchar(500)
+);
+INSERT INTO dbo.Thing
+(
+    [Project],
+    [CreateDate],
+	[Name],
+    [Type],
+    [Desc],
+	[Size],
+    [Comment],
+    [Focus]
+)
+VALUES
+(   1,      -- Project - numeric(18, 0)
+    GETDATE(), -- CreateDate - datetime
+	'Thing1.txt',
+    'txt',        -- Type - varchar(25)
+    'Text1',        -- Desc - varchar(1000)
+	25,
+    'Text Comment 1',        -- Comment - varchar(500)
+    'Focus 1'         -- Focus - varchar(500)
+);
+INSERT INTO dbo.Thing
+(
+    [Project],
+    [CreateDate],
+	[Name],
+    [Type],
+    [Desc],
+	[Size],
+    [Comment],
+    [Focus]
+)
+VALUES
+(   1,      -- Project - numeric(18, 0)
+    GETDATE(), -- CreateDate - datetime
+	'Thing1.txt',
+    'txt',        -- Type - varchar(25)
+    'Text1',        -- Desc - varchar(1000)
+	25,
+    'Text Comment 1',        -- Comment - varchar(500)
+    'Focus 1'         -- Focus - varchar(500)
+);
 INSERT INTO dbo.Thing
 (
     [Project],

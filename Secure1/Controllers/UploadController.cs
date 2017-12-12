@@ -61,7 +61,7 @@ namespace Secure1.Controllers
 				ViewData["Message"] = ret;
 			} else {
 				ViewData["Message"] = "Something was wrong with the submitted information. Please check input and try again.";
-				Serilog.Log.Error(msg);
+				Serilog.Log.Error(msg); //logging anything that might have been in msg
 			}
 			return View("Index");
 			//return RedirectToAction(nameof(UploadController.Index), "Upload");
@@ -85,7 +85,7 @@ namespace Secure1.Controllers
 						using (var memoryStream = new MemoryStream()) {
 							await formFile.CopyToAsync(memoryStream);
 							var version = new DataBusiness.Version {
-								Thing = 1,
+								Thing = 3,
 								CreateDate = DateTime.Now,
 								DisplayName = model.DisplayName,
 								Name = fileName,
@@ -98,6 +98,9 @@ namespace Secure1.Controllers
 							};
 							_context.Version.Add(version);
 							await _context.SaveChangesAsync();
+							msg = String.Format("File {0} from at {1} was successfully uploaded.", formFile.FileName, formFile.Name);
+							Serilog.Log.Information(msg);
+							ret += msg + Environment.NewLine;
 						}
 					}
 				}
@@ -105,19 +108,22 @@ namespace Secure1.Controllers
 				ViewData["Message"] = ret;
 			} else {
 				ViewData["Message"] = "Something was wrong with the submitted information. Please check input and try again.";
-				Serilog.Log.Error(msg);
+				Serilog.Log.Error(String.Format("Error uploading file for User {0}.", User.Identity.Name)); //logging anything that might have been in msg
 			}
-			return View("Index");
+			//return View("Index");
+			return RedirectToAction(nameof(Index));
 			//return RedirectToAction(nameof(UploadController.Index), "Upload");
 		}
 
 		[HttpGet]
-		//[ValidateAntiForgeryToken]
+		//[ValidateAntiForgeryToken]		//For some reason this breaks the download process - look into it when I have the time
+		//[Route("[controller]/[action]")]
 		public ActionResult DownloadFileByte(string id) {
 			//return View("Index");
 			int fileID = 0;
-			if (!int.TryParse("1", out fileID)) {
-				ViewData["Message"] = "Invalid File Input. Please check you selection and try again. If this persists please contact Support.";
+			if (!int.TryParse(id, out fileID)) {
+				ViewData["Message"] = "Invalid File Request. Please check you selection and try again. If this persists please contact Support.";
+				Serilog.Log.Information("Invalid file version request. Version ID: {0}; User: {1};", id, User.Identity.Name);
 				return View("Index");
 			}
 			DataBusiness.Version downloadVersion = (from version in _context.Version
