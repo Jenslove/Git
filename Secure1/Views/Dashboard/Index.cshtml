@@ -1,0 +1,94 @@
+﻿@{
+	ViewData["Title"] = "Dashboard";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>@ViewData["Message"]</h4>
+
+<div>
+	<table style="border: 1px solid black;">
+		<thead>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					@Model.OrganizationNavigation.OrgName
+				</td>
+			</tr>
+			<tr>
+				<td>
+					@Model.FirstName @Model.LastName
+				</td>
+			</tr>
+			@foreach (var project in Model.Project) {
+				<tr>
+					<td>
+						@project.Id
+					</td>
+					<td>
+						@project.Desc
+					</td>
+					<td>
+						@project.Type
+					</td>
+					<td>
+						@project.CreateDate
+					</td>
+					<td>
+						<table style="border: 1px solid red;">
+							<thead>
+							</thead>
+							<tbody>
+								@foreach (var thing in project.Thing) {
+									<tr>
+										<td>
+											@thing.Id
+										</td>
+										<td>
+											@thing.Name
+										</td>
+										<td>
+											@thing.Type
+										</td>
+										<td>
+											@thing.CreateDate
+										</td>
+										<td>
+											<table style="border: 1px solid red; border-collapse: collapse;">
+												<thead>
+												</thead>
+												<tbody>
+													@foreach (var version in thing.Version) {
+														<tr>
+															<td>
+																@version.Id
+															</td>
+															<td>
+																@version.Name
+															</td>
+															<td>
+																@version.FileType
+															</td>
+															<td>
+																@version.CreateDate
+															</td>
+														</tr>
+													}
+												</tbody>
+											</table>
+
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+@section Scripts {
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+}

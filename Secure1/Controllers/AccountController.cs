@@ -65,9 +65,10 @@ namespace Secure1.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("1-User {0} logged in.", model.Email);
-                    return RedirectToLocal(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
+                    //return RedirectToLocal(returnUrl);
+						return RedirectToLocal("/Dashboard/Index");
+					}
+					if (result.RequiresTwoFactor)
                 {
                     return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }

@@ -120,8 +120,8 @@ namespace Secure1.Controllers
 		//[Route("[controller]/[action]")]
 		public ActionResult DownloadFileByte(string id) {
 			//return View("Index");
-			int fileID = 0;
-			if (!int.TryParse(id, out fileID)) {
+			//int fileID = 0;
+			if (!int.TryParse(id, out int fileID)) {
 				ViewData["Message"] = "Invalid File Request. Please check you selection and try again. If this persists please contact Support.";
 				Serilog.Log.Information("Invalid file version request. Version ID: {0}; User: {1};", id, User.Identity.Name);
 				return View("Index");
