@@ -322,159 +322,159 @@ INSERT INTO [dbo].[Thing] (
 SET IDENTITY_INSERT [dbo].[Thing] OFF
 GO
 -------------------------
---SET IDENTITY_INSERT [dbo].[Version] ON
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   1,						--[ID],
---   1,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp1',				--[DisplayName],
---	'Name1',				--[Name],
---	'\\down\path1',	--[FullPath],
---	'type1',				--[FileType],
---	100,					--[Size],
---	'Ver Disc 1',		--[Desc],
---	'Ver Com 1',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   2,						--[ID],
---   2,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp2',				--[DisplayName],
---	'Name2',				--[Name],
---	'\\down\path2',	--[FullPath],
---	'type2',				--[FileType],
---	200,					--[Size],
---	'Ver Disc 2',		--[Desc],
---	'Ver Com 2',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   3,						--[ID],
---   2,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp3',				--[DisplayName],
---	'Name3',				--[Name],
---	'\\down\path3',	--[FullPath],
---	'type3',				--[FileType],
---	300,					--[Size],
---	'Ver Disc 3',		--[Desc],
---	'Ver Com 3',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   4,						--[ID],
---   3,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp4',				--[DisplayName],
---	'Name4',				--[Name],
---	'\\down\path4',	--[FullPath],
---	'type4',				--[FileType],
---	400,					--[Size],
---	'Ver Disc 4',		--[Desc],
---	'Ver Com 4',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   5,						--[ID],
---   3,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp5',				--[DisplayName],
---	'Name5',				--[Name],
---	'\\down\path5',	--[FullPath],
---	'type5',				--[FileType],
---	500,					--[Size],
---	'Ver Disc 5',		--[Desc],
---	'Ver Com 5',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---INSERT INTO [dbo].[Version] (
---   [ID],
---   [Thing],
---   [CreateDate],
---	[DisplayName],
---	[Name],
---	[FullPath],
---	[FileType],
---	[Size],
---	[Desc],
---	[Comment],
---	[Item]
---	) VALUES (
---   6,						--[ID],
---   3,						--[Thing],
---   GETDATE(),			--[CreateDate],
---	'Disp6',				--[DisplayName],
---	'Name6',				--[Name],
---	'\\down\path6',	--[FullPath],
---	'type6',				--[FileType],
---	600,					--[Size],
---	'Ver Disc 6',		--[Desc],
---	'Ver Com 6',		--[Comment],
---	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
---);
---SET IDENTITY_INSERT [dbo].[Version] OFF
---GO
+SET IDENTITY_INSERT [dbo].[Version] ON
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   1,						--[ID],
+   1,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp1',				--[DisplayName],
+	'Name1',				--[Name],
+	'\\down\path1',	--[FullPath],
+	'type1',				--[FileType],
+	100,					--[Size],
+	'Ver Disc 1',		--[Desc],
+	'Ver Com 1',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   2,						--[ID],
+   2,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp2',				--[DisplayName],
+	'Name2',				--[Name],
+	'\\down\path2',	--[FullPath],
+	'type2',				--[FileType],
+	200,					--[Size],
+	'Ver Disc 2',		--[Desc],
+	'Ver Com 2',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   3,						--[ID],
+   2,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp3',				--[DisplayName],
+	'Name3',				--[Name],
+	'\\down\path3',	--[FullPath],
+	'type3',				--[FileType],
+	300,					--[Size],
+	'Ver Disc 3',		--[Desc],
+	'Ver Com 3',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   4,						--[ID],
+   3,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp4',				--[DisplayName],
+	'Name4',				--[Name],
+	'\\down\path4',	--[FullPath],
+	'type4',				--[FileType],
+	400,					--[Size],
+	'Ver Disc 4',		--[Desc],
+	'Ver Com 4',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   5,						--[ID],
+   3,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp5',				--[DisplayName],
+	'Name5',				--[Name],
+	'\\down\path5',	--[FullPath],
+	'type5',				--[FileType],
+	500,					--[Size],
+	'Ver Disc 5',		--[Desc],
+	'Ver Com 5',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   6,						--[ID],
+   3,						--[Thing],
+   GETDATE(),			--[CreateDate],
+	'Disp6',				--[DisplayName],
+	'Name6',				--[Name],
+	'\\down\path6',	--[FullPath],
+	'type6',				--[FileType],
+	600,					--[Size],
+	'Ver Disc 6',		--[Desc],
+	'Ver Com 6',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+SET IDENTITY_INSERT [dbo].[Version] OFF
+GO
 -----------------------
 -----------------------
 SELECT * FROM [Organization]

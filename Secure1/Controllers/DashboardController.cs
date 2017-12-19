@@ -25,11 +25,8 @@ namespace Secure1.Controllers
 						.Include(o => o.OrganizationNavigation)
 						.Include(p => p.Project).ThenInclude(t => t.Thing).ThenInclude(v => v.Version)
 						.Where(u => u.Id == 1).First();
-
 			var model = vu;
-
 			return View(model);
-
 //			return View();
         }
 
