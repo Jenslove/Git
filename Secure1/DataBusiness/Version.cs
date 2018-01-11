@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Secure1.DataBusiness
 {
@@ -17,6 +19,6 @@ namespace Secure1.DataBusiness
         public string Comment { get; set; }
         public byte[] Item { get; set; }
 
-        public Thing ThingNavigation { get; set; }
+		public Thing ThingNavigation { get; set; }
     }
 }

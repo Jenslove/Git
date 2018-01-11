@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Secure1.DataBusiness;
 using Microsoft.EntityFrameworkCore;
 using Secure1.Models.BusinessViewModels;
+using Newtonsoft.Json;
 
 namespace Secure1.Controllers
 {
@@ -24,12 +25,48 @@ namespace Secure1.Controllers
 			var vu = _context.User
 						.Include(o => o.OrganizationNavigation)
 						.Include(p => p.Project).ThenInclude(t => t.Thing).ThenInclude(v => v.Version)
-						.Where(u => u.Id == 1).First();
+						.Where(u => u.Email == User.Identity.Name).First();
 			var model = vu;
 			return View(model);
 //			return View();
         }
 
+		[HttpGet]
+		[Route("Dashboard/KOData")]
+		public ActionResult KOData() {
+			//var x = 1;
+			var vu = _context.User
+						//.Include(o => o.OrganizationNavigation)
+						//.Include(p => p.Project).ThenInclude(t => t.Thing).ThenInclude(v => v.Version)
+						.Where(u => u.Email == User.Identity.Name).First();
+			//var ve = from u in _context.User
+			//			join p in _context.Project on u.Id equals p.User
+			//			join t in _context.Thing on p.Id equals t.Project
+			//			join v in _context.Version on t.Id equals v.Thing
+			//			select new { Id = v.Id, Thing = v.Thing, CreateDate = v.CreateDate, DisplayName = v.DisplayName, Name = v.Name, FullPath = v.FullPath, FileType = v.FileType, Size = v.Size, Desc = v.Desc, Comment = v.Comment };
+
+			//var jvu = new JsonResult(vu);
+			//return jvu;
+			return new JsonResult(vu);
+		}
+
+		[HttpGet]
+		[Route("Dashboard/KOData2")]
+		public object KOData2() {
+			//var x = 1;
+			var vu = _context.User
+						//.Include(o => o.OrganizationNavigation)
+						//.Include(p => p.Project).ThenInclude(t => t.Thing)//.ThenInclude(v => v.Version)
+						.Where(u => u.Email == User.Identity.Name).First();
+			//var ve = from u in _context.User
+			//			join p in _context.Project on u.Id equals p.User
+			//			join t in _context.Thing on p.Id equals t.Project
+			//			join v in _context.Version on t.Id equals v.Thing
+			//			select new { Id = v.Id, Thing = v.Thing, CreateDate = v.CreateDate, DisplayName = v.DisplayName, Name = v.Name, FullPath = v.FullPath, FileType = v.FileType, Size = v.Size, Desc = v.Desc, Comment = v.Comment };
+
+			//var jvu = new JsonResult(vu);
+			return vu;
+		}
 		#region OtherPrebuilt
 		// GET: Dashboard/Details/5
 		public ActionResult Details(int id)

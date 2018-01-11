@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Secure1.DataBusiness
 {
@@ -37,7 +39,7 @@ namespace Secure1.DataBusiness
         public string Ccstate { get; set; }
         public string Cczip { get; set; }
 
-        public Organization OrganizationNavigation { get; set; }
+		public Organization OrganizationNavigation { get; set; }
         public ICollection<Project> Project { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@*No @model here because viewmodel is built in linq EF parts; there is no hand crafted viewmodel*@
+@{
 	ViewData["Title"] = "Dashboard";
 }
 
@@ -124,8 +125,82 @@
 		</table>
 	</div>
 </div>
-
-
+<div>
+	@*<button data-bind="click: doAGet">A GET</button>
+	<button data-bind="click: doA1Get">A 1 GET</button>
+	<button data-bind="click: doA2Get">A 2 GET</button>
+	<button data-bind="click: doA3Get">A 3 GET</button>*@
+<br />
+	<button data-bind="click: doMap">Map Model</button>
+	<br />
+	<ul data-bind="foreach: serverData">
+		<li>
+			Name: <span data-bind="text: $data.firstName"></span>
+			Answer: <span data-bind="text: $data.answer2"></span>
+		</li>
+	</ul>
+	WHAT!?
+</div>
 @section Scripts {
-	@await Html.PartialAsync("_ValidationScriptsPartial")
+	<script src="~/js/site.js"></script>
+	<script>
+		//function koServerDataViewModel() {
+		//	var self = this;
+		//	self.serverData = ko.observableArray();
+
+		//	self.doAGet = function () {
+		//		$.getJSON('/Dashboard/KOData', self.serverData);
+		//	};
+
+		//	self.doA1Get = function () {
+		//		$.ajax({
+		//			type: 'GET',
+		//			url: '/Dashboard/KOData2',
+		//			success: function (data) {
+		//				//console.log(datas);
+		//				self.serverData = data;
+		//				//console.log(self.serverData);
+		//			},
+		//			async: false
+		//		});
+		//	};
+		//	self.doA2Get = function () {
+		//		$.ajax({
+		//			type: 'GET',
+		//			url: '/Dashboard/KOData2',
+		//			success: function (data) {
+		//				//console.log(datas);
+		//				self.serverData = ko.toJSON(data);
+		//				//console.log(self.serverData);
+		//			},
+		//			async: false
+		//		});
+		//	};
+		//	self.doA3Get = function () {
+		//		$.getJSON('/Dashboard/KOData2', self.serverData);
+		//	};
+		//}
+		//$(document).ready(function () {
+		//	ko.applyBindings(new koServerDataViewModel());
+		//});
+		function koMapModel() {
+			var self = this;
+			self.serverData = ko.observableArray();
+			self.doMap = function () {
+@*				self.serverData = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))); *@
+				self.serverData = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None,
+					new Newtonsoft.Json.JsonSerializerSettings() {
+						ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+					}
+				)));
+			};
+		}
+
+		//ko.applyBindings(koServerDataViewModel);
+		ko.applyBindings(koMapModel);
+		//ko.applyBindings(new koServerDataViewModel());
+	</script>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")
+	
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Secure1.DataBusiness
 {
@@ -19,8 +21,8 @@ namespace Secure1.DataBusiness
         public string Comment { get; set; }
         public string Industry { get; set; }
 
-        public Organization OrganizationNavigation { get; set; }
-        public User UserNavigation { get; set; }
+		public Organization OrganizationNavigation { get; set; }
+		public User UserNavigation { get; set; }
         public ICollection<Thing> Thing { get; set; }
     }
 }
