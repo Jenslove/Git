@@ -39,6 +39,7 @@ namespace Secure1.DataBusiness
         public string Ccstate { get; set; }
         public string Cczip { get; set; }
 
+		[JsonIgnore]
 		public Organization OrganizationNavigation { get; set; }
         public ICollection<Project> Project { get; set; }
     }

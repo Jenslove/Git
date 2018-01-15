@@ -17,8 +17,10 @@ namespace Secure1.DataBusiness
         public int Size { get; set; }
         public string Desc { get; set; }
         public string Comment { get; set; }
-        public byte[] Item { get; set; }
+		[JsonIgnore]
+		public byte[] Item { get; set; }
 
+		[JsonIgnore]
 		public Thing ThingNavigation { get; set; }
     }
 }

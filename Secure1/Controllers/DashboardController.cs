@@ -65,7 +65,10 @@ namespace Secure1.Controllers
 			//			select new { Id = v.Id, Thing = v.Thing, CreateDate = v.CreateDate, DisplayName = v.DisplayName, Name = v.Name, FullPath = v.FullPath, FileType = v.FileType, Size = v.Size, Desc = v.Desc, Comment = v.Comment };
 
 			//var jvu = new JsonResult(vu);
-			return vu;
+			////var j = new JsonResult(vu);
+			////return j.ToString();
+			//return vu;
+			return new JsonResult(vu);
 		}
 		#region OtherPrebuilt
 		// GET: Dashboard/Details/5

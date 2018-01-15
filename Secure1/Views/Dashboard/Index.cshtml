@@ -49,10 +49,9 @@
 						<td style="padding: 4px 3px 4px 3px; width: 20%; text-align:right;">
 							<b>CREATED: </b>@project.CreateDate
 						</td>
-						<td>
-						</td>
+						<td></td>
 					</tr>
-				 }
+				}
 			</tbody>
 		</table>
 	</div>
@@ -97,110 +96,85 @@
 						<b>THING VERSIONS</b>
 					</td>
 				</tr>
-		@foreach (var project in Model.Project) {
-			@foreach (var thing in project.Thing) {
-				@foreach (var version in thing.Version) {
-					<tr>
-						<td style="padding: 4px 3px 4px 3px; width: 10%;">
-							<b>THING: </b>@version.Thing
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 10%;">
-							<b>ID: </b>@version.Id
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 30%;">
-							<b>NAME: </b>@version.Name
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 20%;">
-							<b>TYPE: </b>@version.FileType
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 30%; text-align:right;">
-							<b>CREATED: </b>@version.CreateDate
-						</td>
-						<td></td>
-					</tr>
+				@foreach (var project in Model.Project) {
+					@foreach (var thing in project.Thing) {
+						@foreach (var version in thing.Version) {
+							<tr>
+								<td style="padding: 4px 3px 4px 3px; width: 10%;">
+									<b>THING: </b>@version.Thing
+								</td>
+								<td style="padding: 4px 3px 4px 3px; width: 10%;">
+									<b>ID: </b>@version.Id
+								</td>
+								<td style="padding: 4px 3px 4px 3px; width: 30%;">
+									<b>NAME: </b>@version.Name
+								</td>
+								<td style="padding: 4px 3px 4px 3px; width: 20%;">
+									<b>TYPE: </b>@version.FileType
+								</td>
+								<td style="padding: 4px 3px 4px 3px; width: 30%; text-align:right;">
+									<b>CREATED: </b>@version.CreateDate
+								</td>
+								<td></td>
+							</tr>
+						}
+					}
 				}
-			}
-		}
 			</tbody>
 		</table>
 	</div>
 </div>
 <div>
 	@*<button data-bind="click: doAGet">A GET</button>
-	<button data-bind="click: doA1Get">A 1 GET</button>
-	<button data-bind="click: doA2Get">A 2 GET</button>
-	<button data-bind="click: doA3Get">A 3 GET</button>*@
-<br />
+		<button data-bind="click: doA1Get">A 1 GET</button>
+		<button data-bind="click: doA2Get">A 2 GET</button>
+		<button data-bind="click: doA3Get">A 3 GET</button>*@
+	<br />
 	<button data-bind="click: doMap">Map Model</button>
 	<br />
-	<ul data-bind="foreach: serverData">
-		<li>
-			Name: <span data-bind="text: $data.firstName"></span>
-			Answer: <span data-bind="text: $data.answer2"></span>
-		</li>
-	</ul>
-	WHAT!?
+	<button data-bind="click: doOne">Do One</button>
+	<br />
+	<span data-bind="text: oneVal"></span>
+	<span data-bind="text: $data.oneVal"></span>
+	<br />
+	1: <span data-bind="text: serverData.address1"></span>
+	2: <span data-bind="text: serverData.Address1"></span>
+</div>
+<div>
+	<span data-bind="text: mod"></span><br />
+	@*<span>@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));</span>*@
 </div>
 @section Scripts {
 	<script src="~/js/site.js"></script>
+	<script src="~/lib/knockout/dist/knockout.mapping.js"></script>
 	<script>
-		//function koServerDataViewModel() {
-		//	var self = this;
-		//	self.serverData = ko.observableArray();
+        function koMapModel() {
+            var self = this;
+            self.serverData = ko.observableArray();
+            self.mod = ko.observableArray();
+				self.oneVal = ko.observable('FUCK!');
+				//self.oneVal = 'FUCK!';
 
-		//	self.doAGet = function () {
-		//		$.getJSON('/Dashboard/KOData', self.serverData);
-		//	};
+				self.doMap = function () {
+					self.mod(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
+					//self.raw = "'" + self.mod + "'";
+                @*self.mod = "'" + @Html.Raw(Model).ToString() + "'";*@
+					//ko.mapping.fromJS(self.mod, {}, self.serverData);
+					self.serverData(ko.mapping.fromJS(self.mod));
+					self.oneVal('Damn!!');
+				};
 
-		//	self.doA1Get = function () {
-		//		$.ajax({
-		//			type: 'GET',
-		//			url: '/Dashboard/KOData2',
-		//			success: function (data) {
-		//				//console.log(datas);
-		//				self.serverData = data;
-		//				//console.log(self.serverData);
-		//			},
-		//			async: false
-		//		});
-		//	};
-		//	self.doA2Get = function () {
-		//		$.ajax({
-		//			type: 'GET',
-		//			url: '/Dashboard/KOData2',
-		//			success: function (data) {
-		//				//console.log(datas);
-		//				self.serverData = ko.toJSON(data);
-		//				//console.log(self.serverData);
-		//			},
-		//			async: false
-		//		});
-		//	};
-		//	self.doA3Get = function () {
-		//		$.getJSON('/Dashboard/KOData2', self.serverData);
-		//	};
-		//}
-		//$(document).ready(function () {
-		//	ko.applyBindings(new koServerDataViewModel());
-		//});
-		function koMapModel() {
-			var self = this;
-			self.serverData = ko.observableArray();
-			self.doMap = function () {
-@*				self.serverData = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))); *@
-				self.serverData = ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.None,
-					new Newtonsoft.Json.JsonSerializerSettings() {
-						ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-					}
-				)));
-			};
+				self.doOne = function () {
+					self.oneVal('CRAP!');
+
+				}
 		}
 
 		//ko.applyBindings(koServerDataViewModel);
-		ko.applyBindings(koMapModel);
+		ko.applyBindings(new koMapModel());
 		//ko.applyBindings(new koServerDataViewModel());
 	</script>
 
-@await Html.PartialAsync("_ValidationScriptsPartial")
-	
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+
 }

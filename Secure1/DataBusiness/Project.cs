@@ -21,7 +21,9 @@ namespace Secure1.DataBusiness
         public string Comment { get; set; }
         public string Industry { get; set; }
 
+		[JsonIgnore]
 		public Organization OrganizationNavigation { get; set; }
+		[JsonIgnore]
 		public User UserNavigation { get; set; }
         public ICollection<Thing> Thing { get; set; }
     }

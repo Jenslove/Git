@@ -22,6 +22,7 @@ namespace Secure1.DataBusiness
         public string Comment { get; set; }
         public string Focus { get; set; }
 
+		[JsonIgnore]
 		public Project ProjectNavigation { get; set; }
 		public ICollection<Version> Version { get; set; }
     }
