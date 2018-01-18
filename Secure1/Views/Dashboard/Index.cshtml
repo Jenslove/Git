@@ -125,54 +125,29 @@
 	</div>
 </div>
 <div>
-	@*<button data-bind="click: doAGet">A GET</button>
-		<button data-bind="click: doA1Get">A 1 GET</button>
-		<button data-bind="click: doA2Get">A 2 GET</button>
-		<button data-bind="click: doA3Get">A 3 GET</button>*@
 	<br />
-	<button data-bind="click: doMap">Map Model</button>
+	<button data-bind="click: doOne">Something</button>
 	<br />
-	<button data-bind="click: doOne">Do One</button>
+	<span data-bind="text: serverData().Project()[0].Desc()"></span>
 	<br />
-	<span data-bind="text: oneVal"></span>
-	<span data-bind="text: $data.oneVal"></span>
-	<br />
-	1: <span data-bind="text: serverData.address1"></span>
-	2: <span data-bind="text: serverData.Address1"></span>
-</div>
-<div>
-	<span data-bind="text: mod"></span><br />
-	@*<span>@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));</span>*@
 </div>
 @section Scripts {
 	<script src="~/js/site.js"></script>
 	<script src="~/lib/knockout/dist/knockout.mapping.js"></script>
 	<script>
-        function koMapModel() {
-            var self = this;
-            self.serverData = ko.observableArray();
-            self.mod = ko.observableArray();
-				self.oneVal = ko.observable('FUCK!');
-				//self.oneVal = 'FUCK!';
+		function koMapModel() {
+			var self = this;
+			self.serverData = ko.observable('mod1');
 
-				self.doMap = function () {
-					self.mod(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model)));
-					//self.raw = "'" + self.mod + "'";
-                @*self.mod = "'" + @Html.Raw(Model).ToString() + "'";*@
-					//ko.mapping.fromJS(self.mod, {}, self.serverData);
-					self.serverData(ko.mapping.fromJS(self.mod));
-					self.oneVal('Damn!!');
-				};
+			self.serverData(ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))));
 
-				self.doOne = function () {
-					self.oneVal('CRAP!');
+			self.doOne = function () {
+				var x = 1;
 
-				}
+			}
 		}
 
-		//ko.applyBindings(koServerDataViewModel);
 		ko.applyBindings(new koMapModel());
-		//ko.applyBindings(new koServerDataViewModel());
 	</script>
 
 	@await Html.PartialAsync("_ValidationScriptsPartial")
