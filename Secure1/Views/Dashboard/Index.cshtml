@@ -124,12 +124,32 @@
 		</table>
 	</div>
 </div>
-<div>
-	<br />
-	<button data-bind="click: doOne">Something</button>
-	<br />
-	<span data-bind="text: serverData().Project()[0].Desc()"></span>
-	<br />
+<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
+	<table>
+		<thead>
+			<tr><th>Desc</th><th>Industry</th></tr>
+		</thead>
+		<tbody data-bind="foreach: serverData().Project()">
+			<tr style="cursor:pointer;" data-bind="click: function() { $root.selectProject($data); $root.selectedPos($index) }, css: { 'selected': $root.SelectedProj() == $data } ">
+				<td data-bind="text: $data.Id()"></td>
+				<td data-bind="text: $data.Desc()"></td>
+				<td data-bind="text: $data.Industry()"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
+	<table>
+		<thead>
+			<tr><th>Name</th><th>Type</th></tr>
+		</thead>
+		<tbody data-bind="foreach: SelectedProj().Thing()">
+			<tr>
+				<td data-bind="text: $data.Name()"></td>
+				<td data-bind="text: $data.Type()"></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 @section Scripts {
 	<script src="~/js/site.js"></script>
@@ -138,13 +158,29 @@
 		function koMapModel() {
 			var self = this;
 			self.serverData = ko.observable('mod1');
+			self.ProjNum = ko.observable(0);
 
+			self.SelectedProj = ko.observable(0);
 			self.serverData(ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))));
+			// Whenever the category changes, reset the product selection
+			self.serverData.subscribe(function () {
+				self.SelectedProj(self.serverData.Project);
+			});
+			//self.SelectedProj(self.serverData.Project);
+			self.selectProject = function (Proj) {
+				//self.SelectedProj(Proj.Id()-1);
+				//var context = ko.contextFor(Proj);
+				//self.ProjNum = Proj.$index;
+				self.SelectedProj(Proj);
+			};
+			self.selectedPos = function (index) {
+				var x = index;
+				self.ProjNum(x);
+			};
+			self.ProjItems = ko.computed(function () {
 
-			self.doOne = function () {
-				var x = 1;
 
-			}
+			});
 		}
 
 		ko.applyBindings(new koMapModel());

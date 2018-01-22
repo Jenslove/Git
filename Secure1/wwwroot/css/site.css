@@ -33,3 +33,7 @@
         display: none;
     }
 }
+/* My Stuff */
+.selected {
+	background-color: gray;
+}
