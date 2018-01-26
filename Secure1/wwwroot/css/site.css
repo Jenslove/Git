@@ -33,7 +33,53 @@
         display: none;
     }
 }
-/* My Stuff */
+/*/////////////////// My Stuff /////////////////////*/
+
+/* Below is for table KO highlighting functionality */
+.selected {
+	background-color: #d1edc1;
+}
+
 .selected {
 	background-color: gray;
+}
+
+.card-style {
+	background-color: #ebf2f2;
+	border: 1px solid black;
+	border-radius: 8px;
+}
+
+.card-header-style {
+	padding: 1px 1px 1px 1px;
+	background-color: #c7d9ff;
+	border: 1px solid #c2c7c7;
+	border-radius: 8px;
+}
+
+.myButton-sm {
+	background-color: #ffffff;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	border: 1px solid #ffffff;
+	display: inline-block;
+	cursor: pointer;
+	color: #030003;
+	font-family: Arial;
+	font-size: 10px;
+	padding: 1px 5px;
+	text-decoration: none;
+	margin-left: 3px;
+	vertical-align: top;
+}
+
+.myButton-sm:hover {
+	background-color: #8f0d11;
+	color: #ffffff;
+}
+
+.myButton-sm:active {
+	position: relative;
+	top: 1px;
 }

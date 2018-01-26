@@ -25,152 +25,95 @@
 		</table>
 	</div>
 </div>
-<div class="row" style="padding: 5px 3px 4px 3px; ">
-	<div class="col-lg-12 col-md-12 col-sm-12" style="padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-		<table>
-			<thead></thead>
-			<tbody>
-				<tr>
-					<td colspan="4" style="padding: 4px 3px 4px 3px; align-content:center; vertical-align:top;">
-						<b>PROJECTS</b>
-					</td>
-				</tr>
-				@foreach (var project in Model.Project) {
-					<tr>
-						<td style="padding: 4px 3px 4px 3px; width: 5%;">
-							<b>ID: </b>@project.Id
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 60%;">
-							<b>DESCRIPTION: </b>@project.Desc
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 15%;">
-							<b>TYPE: </b>@project.Type
-						</td>
-						<td style="padding: 4px 3px 4px 3px; width: 20%; text-align:right;">
-							<b>CREATED: </b>@project.CreateDate
-						</td>
-						<td></td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
-</div>
-<div class="row">
-	<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-		<table>
-			<thead></thead>
-			<tbody>
-				<tr>
-					<td colspan="4" style="padding: 4px 3px 4px 3px; align-content:center; vertical-align:top;">
-						<b>PROJECT THINGS</b>
-					</td>
-				</tr>
-				@foreach (var project in Model.Project) {
-					@foreach (var thing in project.Thing) {
-						<tr>
-							<td style="padding: 4px 3px 4px 3px;">
-								<b>ID: </b>@thing.Id
-							</td>
-							<td style="padding: 4px 3px 4px 3px;">
-								<b>NAME: </b>@thing.Name
-							</td>
-							<td style="padding: 4px 3px 4px 3px;">
-								<b>TYPE: </b>@thing.Type
-							</td>
-							<td style="padding: 4px 3px 4px 3px;">
-								<b>CREATED: </b>@thing.CreateDate
-							</td>
-						</tr>
-					}
-				}
-			</tbody>
-		</table>
-	</div>
-	<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-		<table>
-			<thead></thead>
-			<tbody>
-				<tr>
-					<td colspan="4" style="padding: 4px 3px 4px 3px; align-content:center; vertical-align:top;">
-						<b>THING VERSIONS</b>
-					</td>
-				</tr>
-				@foreach (var project in Model.Project) {
-					@foreach (var thing in project.Thing) {
-						@foreach (var version in thing.Version) {
+<div class="container-fluid" style="background-color:#401414;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card card-style">
+				<div class="card-header card-header-style">
+					<button class="myButton-sm" title="Add a Project">Add</button>
+					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
+				</div>
+				<div class="card-block">
+
+					<table class="card-text">
+						<thead>
 							<tr>
-								<td style="padding: 4px 3px 4px 3px; width: 10%;">
-									<b>THING: </b>@version.Thing
-								</td>
-								<td style="padding: 4px 3px 4px 3px; width: 10%;">
-									<b>ID: </b>@version.Id
-								</td>
-								<td style="padding: 4px 3px 4px 3px; width: 30%;">
-									<b>NAME: </b>@version.Name
-								</td>
-								<td style="padding: 4px 3px 4px 3px; width: 20%;">
-									<b>TYPE: </b>@version.FileType
-								</td>
-								<td style="padding: 4px 3px 4px 3px; width: 30%; text-align:right;">
-									<b>CREATED: </b>@version.CreateDate
-								</td>
-								<td></td>
+								<th>Desc</th>
+								<th>Industry</th>
 							</tr>
-						}
-					}
-				}
-			</tbody>
-		</table>
+						</thead>
+						<tbody data-bind="foreach: serverData().Project()">
+							<tr style="cursor:pointer;" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
+								<td data-bind="text: $data.Id()"></td>
+								<td data-bind="text: $data.Desc()"></td>
+								<td data-bind="text: $data.Industry()"></td>
+								<td><a>Remove</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card card-style">
+				<div class="card-header card-header-style">
+					<button class="myButton-sm" title="Add a Project">Add</button>
+					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
+				</div>
+				<div class="card-block">
+
+					<strong class="card-title" data-bind="ifnot: SelectedProj">No Project is selected</strong>
+					<table data-bind="visible: SelectedProj">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: things()">
+							<tr style="cursor:pointer;" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
+								<td data-bind="text: $data.Name()"></td>
+								<td data-bind="text: $data.Type()"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="card card-style">
+				<div class="card-header card-header-style">
+					<button class="myButton-sm" title="Add a Project">Add</button>
+					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
+				</div>
+				<div class="card-block">
+					<strong class="card-title" data-bind="ifnot: SelectedThing">No Thing is selected</strong>
+					<table data-bind="visible: SelectedThing">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Desc</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: versions()">
+							<tr>
+								<td data-bind="text: $data.Name()"></td>
+								<td data-bind="text: $data.Desc()"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-	<table>
-		<thead>
-			<tr><th>Desc</th><th>Industry</th></tr>
-		</thead>
-		<tbody data-bind="foreach: serverData().Project()">
-			<tr style="cursor:pointer;" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
-				<td data-bind="text: $data.Id()"></td>
-				<td data-bind="text: $data.Desc()"></td>
-				<td data-bind="text: $data.Industry()"></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-	<strong data-bind="ifnot: SelectedProj">No Project is selected</strong>
-	<table data-bind="visible: SelectedProj">
-		<thead>
-			<tr><th>Name</th><th>Type</th></tr>
-		</thead>
-		<tbody data-bind="foreach: things()">
-			<tr style="cursor:pointer;" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
-				<td data-bind="text: $data.Name()"></td>
-				<td data-bind="text: $data.Type()"></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div class="col-lg-6" style="margin: 4px 4px 4px 4px; padding: 4px 4px 4px 4px; background-color:lightgoldenrodyellow; border: 1px solid grey; border-radius: 8px;">
-	<strong data-bind="ifnot: SelectedThing">No Thing is selected</strong>
-	<table data-bind="visible: SelectedThing">
-		<thead>
-			<tr><th>Name</th><th>Desc</th></tr>
-		</thead>
-		<tbody data-bind="foreach: versions()">
-			<tr>
-				<td data-bind="text: $data.Name()"></td>
-				<td data-bind="text: $data.Desc()"></td>
-			</tr>
-		</tbody>
-	</table>
 </div>
 
 @section Scripts {
 	<script src="~/js/site.js"></script>
 	<script src="~/lib/knockout/dist/knockout.mapping.js"></script>
 	<script>
+
 function koMapModel() {
 	var self = this;
 
@@ -192,9 +135,9 @@ function koMapModel() {
 		self.versions(Thing.Version);
 	};
 }
+ko.applyBindings(new koMapModel());	
 
-		ko.applyBindings(new koMapModel());	</script>
+	</script>
 
 	@await Html.PartialAsync("_ValidationScriptsPartial")
-
 }
