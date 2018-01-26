@@ -37,24 +37,26 @@
 
 /* Below is for table KO highlighting functionality */
 .selected {
-	background-color: #d1edc1;
-}
-
-.selected {
-	background-color: gray;
+	background-color: #c1ffbf;
 }
 
 .card-style {
 	background-color: #ebf2f2;
 	border: 1px solid black;
 	border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-text-style {
+	margin: 4px 4px 4px 4px;
 }
 
 .card-header-style {
 	padding: 1px 1px 1px 1px;
-	background-color: #c7d9ff;
+	background-color: #dfdbff;
 	border: 1px solid #c2c7c7;
 	border-radius: 8px;
+	height: 22px;
 }
 
 .myButton-sm {
@@ -62,7 +64,7 @@
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
-	border: 1px solid #ffffff;
+	border: 1px solid #c2c7c7;
 	display: inline-block;
 	cursor: pointer;
 	color: #030003;
@@ -74,12 +76,11 @@
 	vertical-align: top;
 }
 
-.myButton-sm:hover {
-	background-color: #8f0d11;
-	color: #ffffff;
-}
+	.myButton-sm:hover {
+		background-color: #bdfaad;
+	}
 
-.myButton-sm:active {
-	position: relative;
-	top: 1px;
-}
+	.myButton-sm:active {
+		position: relative;
+		top: 1px;
+	}

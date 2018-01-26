@@ -3,8 +3,8 @@
 	ViewData["Title"] = "Dashboard";
 }
 
-<div class="row" style="padding: 5px 3px 4px 3px; border-radius: 8px;">
-	<div style="padding: 4px 4px 4px 4px; max-width: 600px; background-color:lavender; border: 1px solid grey; border-radius: 8px;">
+<div class="row" style="padding: 5px 3px 4px 3px; border-radius: 8px; margin-bottom:10px;">
+	<div style="padding: 4px 4px 4px 4px; max-width: 600px; background-color:lavender; border: 1px solid grey; border-radius: 8px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 		<table>
 			<thead></thead>
 			<tbody>
@@ -25,7 +25,7 @@
 		</table>
 	</div>
 </div>
-<div class="container-fluid" style="background-color:#401414;">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-4">
 			<div class="card card-style">
@@ -34,23 +34,24 @@
 					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
 				</div>
 				<div class="card-block">
-
-					<table class="card-text">
-						<thead>
-							<tr>
-								<th>Desc</th>
-								<th>Industry</th>
-							</tr>
-						</thead>
-						<tbody data-bind="foreach: serverData().Project()">
-							<tr style="cursor:pointer;" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
-								<td data-bind="text: $data.Id()"></td>
-								<td data-bind="text: $data.Desc()"></td>
-								<td data-bind="text: $data.Industry()"></td>
-								<td><a>Remove</a></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="card-text card-text-style">
+						<table>
+							<thead>
+								<tr>
+									<th>Desc</th>
+									<th>Industry</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: serverData().Project()">
+								<tr style="cursor:pointer;" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
+									<td data-bind="text: $data.Id()"></td>
+									<td data-bind="text: $data.Desc()"></td>
+									<td data-bind="text: $data.Industry()"></td>
+									<td><a>Remove</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -61,23 +62,24 @@
 					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
 				</div>
 				<div class="card-block">
+					<div class="card-text card-text-style">
 
-					<strong class="card-title" data-bind="ifnot: SelectedProj">No Project is selected</strong>
-					<table data-bind="visible: SelectedProj">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Type</th>
-							</tr>
-						</thead>
-						<tbody data-bind="foreach: things()">
-							<tr style="cursor:pointer;" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
-								<td data-bind="text: $data.Name()"></td>
-								<td data-bind="text: $data.Type()"></td>
-							</tr>
-						</tbody>
-					</table>
-
+						<strong class="card-title" data-bind="ifnot: SelectedProj">No Project is selected</strong>
+						<table data-bind="visible: SelectedProj">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Type</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: things()">
+								<tr style="cursor:pointer;" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
+									<td data-bind="text: $data.Name()"></td>
+									<td data-bind="text: $data.Type()"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -88,21 +90,24 @@
 					<button class="myButton-sm" title="Show or Hide removed Projects">Show Removed</button>
 				</div>
 				<div class="card-block">
-					<strong class="card-title" data-bind="ifnot: SelectedThing">No Thing is selected</strong>
-					<table data-bind="visible: SelectedThing">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Desc</th>
-							</tr>
-						</thead>
-						<tbody data-bind="foreach: versions()">
-							<tr>
-								<td data-bind="text: $data.Name()"></td>
-								<td data-bind="text: $data.Desc()"></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="card-text card-text-style">
+
+						<strong class="card-title" data-bind="ifnot: SelectedThing">No Thing is selected</strong>
+						<table data-bind="visible: SelectedThing">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Desc</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: versions()">
+								<tr>
+									<td data-bind="text: $data.Name()"></td>
+									<td data-bind="text: $data.Desc()"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
