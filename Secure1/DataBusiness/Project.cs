@@ -11,8 +11,10 @@ namespace Secure1.DataBusiness
         {
             Thing = new HashSet<Thing>();
         }
+		// TODO: Add Project Name field
+		// TODO: Add Project Removed flag field
 
-        public decimal Id { get; set; }
+		public decimal Id { get; set; }
         public decimal User { get; set; }
         public decimal? Organization { get; set; }
         public DateTime CreateDate { get; set; }

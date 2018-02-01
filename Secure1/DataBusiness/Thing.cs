@@ -7,7 +7,9 @@ namespace Secure1.DataBusiness
 {
     public partial class Thing
     {
-        public Thing()
+		// TODO: Add Thing Removed flag field
+		// TODO: Probably could delete size here as this is just the theoretical thing
+		public Thing()
         {
             Version = new HashSet<Version>();
         }

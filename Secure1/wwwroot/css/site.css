@@ -35,22 +35,18 @@
 }
 /*/////////////////// My Stuff /////////////////////*/
 
-/* Below is for table KO highlighting functionality */
+/********* KO highlighting functionality */
 .selected {
 	background-color: #c1ffbf;
 }
+
+/********* Card Styles */
 
 .card-style {
 	background-color: #ebf2f2;
 	border: 1px solid black;
 	border-radius: 8px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-.card-text-style {
-	margin: 4px 4px 4px 4px;
-}
-
 .card-header-style {
 	padding: 1px 1px 1px 1px;
 	background-color: #dfdbff;
@@ -58,29 +54,126 @@
 	border-radius: 8px;
 	height: 22px;
 }
-
-.myButton-sm {
-	background-color: #ffffff;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
-	border: 1px solid #c2c7c7;
-	display: inline-block;
-	cursor: pointer;
-	color: #030003;
-	font-family: Arial;
-	font-size: 10px;
-	padding: 1px 5px;
-	text-decoration: none;
-	margin-left: 3px;
-	vertical-align: top;
+.card-text-style {
+	margin: 3px 3px 3px 3px;
 }
 
-	.myButton-sm:hover {
-		background-color: #bdfaad;
-	}
+/********* Card Table Styles */
 
-	.myButton-sm:active {
-		position: relative;
-		top: 1px;
-	}
+.td-left-card-style {
+	min-width: 125px;
+	vertical-align: top;
+	text-align: left;
+}
+.td-center-card-style {
+	vertical-align: top;
+	text-align: left;
+	padding-left: 3px;
+}
+.td-right-card-style {
+	min-width: 50px;
+	vertical-align: top;
+	text-align: left;
+}
+
+/********* Card Header Button Styles */
+
+.myButton-sm {
+	background-color: #50a3eb;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	border-radius: 7px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	cursor: pointer;
+	color: #222;
+	font-family: Arial;
+	font-size: 12px;
+	padding-top: 1px;
+	text-decoration: none;
+	text-align: center;
+	margin-left: 3px;
+	vertical-align: top;
+	height: 18px;
+	width: 42px;
+}
+.myButton-sm:hover {
+	background-color: #2bb309;
+	border-color: #bdfaad;
+}
+.myButton-sm:active {
+	position: relative;
+	top: 1px;
+}
+.a-small {
+	font-size: x-small;
+	cursor: pointer;
+}
+
+/****** Header checkbox slider ******/
+
+.checkbox-sm-label {
+	font-family: Arial;
+	font-size: 14px;
+	vertical-align: top;
+	height: 16px;
+}
+.switch {
+	position: relative;
+	display: inline-block;
+	margin-top: 1px;
+	width: 24px;
+	height: 16px;
+	margin-left: 3px;
+}
+.switch input {
+	display: none;
+}
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #279bde;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 12px;
+	width: 12px;
+	left: 2px;
+	bottom: 2px;
+	background-color: #666;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+input:checked + .slider {
+	background-color: #2bb309;
+}
+input:focus + .slider {
+	box-shadow: 0 0 1px #2bb309;
+}
+input:checked + .slider:before {
+	-webkit-transform: translateX(8px);
+	-ms-transform: translateX(8px);
+	transform: translateX(8px);
+}
+
+/* Rounded sliders */
+
+.slider.round {
+	border-radius: 12px;
+}
+.slider.round:before {
+	border-radius: 50%;
+}
+.slider.round:hover {
+	border-radius: 12px;
+	background-color: #2bb309;
+}
+
+/****** END Header checkbox slider */

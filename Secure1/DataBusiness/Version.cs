@@ -7,7 +7,8 @@ namespace Secure1.DataBusiness
 {
     public partial class Version
     {
-        public decimal Id { get; set; }
+		// TODO: Add Version Removed flag field
+		public decimal Id { get; set; }
         public decimal Thing { get; set; }
         public DateTime CreateDate { get; set; }
         public string DisplayName { get; set; }
