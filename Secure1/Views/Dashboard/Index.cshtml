@@ -43,11 +43,11 @@
 							<table style="width: 100%;">
 								<thead>
 									<tr>
-										<th>Projects</th>
+										<th class="th-title-style" colspan="2">User's Projects</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: serverData().Project()">
-									<tr style="cursor:pointer; border-bottom:2px solid #50a3eb; margin-bottom:3px;" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
+									<tr class="tr-inner-table-bottom-style" title="Select a Project to view it's Items" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
 										<td>
 											<div style="width: 100%;">
 												<table style="width: 100%;">
@@ -105,11 +105,11 @@
 							<table data-bind="visible: SelectedProj" style="width: 100%;">
 								<thead>
 									<tr>
-										<th>Project Items</th>
+										<th class="th-title-style" colspan="2">Project's Items</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: things()">
-									<tr style="cursor:pointer; border-bottom:2px solid #50a3eb; margin-bottom:3px;" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
+									<tr class="tr-inner-table-bottom-style" title="Select Item to view it's Versions" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
 
 										<td>
 											<div style="width: 100%;">
@@ -168,11 +168,11 @@
 							<table data-bind="visible: SelectedThing" style="width: 100%;">
 								<thead>
 									<tr>
-										<th>Item Versions</th>
+										<th class="th-title-style" colspan="2">Item's Versions</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: versions()">
-									<tr style="border-bottom:2px solid #50a3eb; margin-bottom:3px;">
+									<tr class="tr-inner-table-items-bottom-style">
 										<td>
 											<div style="width: 100%;">
 												<table style="width: 100%;">

@@ -60,6 +60,20 @@
 
 /********* Card Table Styles */
 
+.th-title-style {
+	background: #50a3eb;
+	color: #000;
+	text-align: center;
+}
+.tr-inner-table-bottom-style {
+	cursor: pointer;
+	border-bottom: 1px solid #50a3eb;
+	margin-bottom: 3px;
+}
+.tr-inner-table-items-bottom-style {
+	border-bottom: 1px solid #50a3eb;
+	margin-bottom: 3px;
+}
 .td-left-card-style {
 	min-width: 125px;
 	vertical-align: top;
