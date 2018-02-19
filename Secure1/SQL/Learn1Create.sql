@@ -66,6 +66,8 @@ GO
 -----------------------
 CREATE TABLE [dbo].[Project] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Archive]		BIT				NOT NULL DEFAULT 0,
+	[Name]			VARCHAR(150)	NOT NULL,
 	[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
 	[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
    [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
@@ -79,6 +81,7 @@ GO
 CREATE TABLE [dbo].[Thing] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
 	[Project]		NUMERIC (18)	NOT NULL FOREIGN KEY REFERENCES dbo.[Project](ID),
+	[Archive]		BIT				NOT NULL DEFAULT 0,
    [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[Name]			VARCHAR(150)	NOT NULL,
 	[Type]			VARCHAR(25)		NOT NULL,
@@ -92,6 +95,7 @@ GO
 CREATE TABLE [dbo].[Version] (
    [ID]				NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
    [Thing]			NUMERIC (18)	NOT NULL FOREIGN KEY REFERENCES dbo.[Thing](ID),
+	[Archive]		BIT				NOT NULL DEFAULT 0,
    [CreateDate]	DATETIME			NOT NULL DEFAULT GETDATE(),
 	[DisplayName]	VARCHAR(150)	NOT NULL,
 	[Name]			VARCHAR(150)	NOT NULL,
@@ -216,6 +220,8 @@ GO
 SET IDENTITY_INSERT [dbo].[Project] ON
 INSERT INTO [dbo].[Project] (
    [ID],
+	[Archive],
+	[Name],
 	[User],
 	[Organization],
    [CreateDate],
@@ -225,6 +231,8 @@ INSERT INTO [dbo].[Project] (
 	[Industry]
 	) VALUES (
    1,					--[ID]			NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	0,					--Archive	False
+	'Project 1',	--Name
 	1,					--[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
 	1,					--[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
     GETDATE(),		--[CreateDate]	DATETIME		NOT NULL,
@@ -235,6 +243,8 @@ INSERT INTO [dbo].[Project] (
 );
 INSERT INTO [dbo].[Project] (
    [ID],
+	[Archive],
+	[Name],
 	[User],
 	[Organization],
    [CreateDate],
@@ -244,6 +254,8 @@ INSERT INTO [dbo].[Project] (
 	[Industry]
 	) VALUES (
    2,					--[ID]			NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	0,					--Archive	False
+	'Project 2',	--Name
 	1,					--[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
 	1,					--[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
     GETDATE(),		--[CreateDate]	DATETIME		NOT NULL,
@@ -252,6 +264,29 @@ INSERT INTO [dbo].[Project] (
 	'ProjCom2',		--[Comment]		VARCHAR(500)	NOT NULL,
 	'ProjInd2'		--[Industry]		VARCHAR(500)	NOT NULL,
 );
+INSERT INTO [dbo].[Project] (
+   [ID],
+	[Archive],
+	[Name],
+	[User],
+	[Organization],
+   [CreateDate],
+	[Type],
+	[Desc],
+	[Comment],
+	[Industry]
+	) VALUES (
+   3,					--[ID]			NUMERIC (18) IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	1,					--Archive	False
+	'Project 3',	--Name
+	1,					--[User]			NUMERIC (18)	NOT NULL	FOREIGN KEY REFERENCES dbo.[User](ID),
+	1,					--[Organization]	NUMERIC (18)	NULL		FOREIGN KEY REFERENCES dbo.[Organization](ID),
+    GETDATE(),		--[CreateDate]	DATETIME		NOT NULL,
+	'Proj3',			--[Type]			VARCHAR(25)		NOT NULL,
+	'ProjDesc3',	--[Desc]			VARCHAR(1000)	NOT NULL,
+	'ProjCom3',		--[Comment]		VARCHAR(500)	NOT NULL,
+	'ProjInd3'		--[Industry]		VARCHAR(500)	NOT NULL,
+);
 SET IDENTITY_INSERT [dbo].[Project] OFF
 GO
 -----------------------
@@ -259,6 +294,7 @@ SET IDENTITY_INSERT [dbo].[Thing] ON
 INSERT INTO [dbo].[Thing] (
    [ID],
 	[Project],
+	[Archive],
    [CreateDate],
 	[Name],
 	[Type],
@@ -269,6 +305,7 @@ INSERT INTO [dbo].[Thing] (
 	) VALUES (
    1,					--[ID],
 	1,					--[Project],
+	0,					--Archive
    GETDATE(),		--[CreateDate],
 	'Thing 1',		--[Name],
 	'png',			--[Type],
@@ -280,6 +317,7 @@ INSERT INTO [dbo].[Thing] (
 INSERT INTO [dbo].[Thing] (
    [ID],
 	[Project],
+	[Archive],
    [CreateDate],
 	[Name],
 	[Type],
@@ -290,6 +328,7 @@ INSERT INTO [dbo].[Thing] (
 	) VALUES (
    2,					--[ID],
 	2,					--[Project],
+	0,					--Archive
    GETDATE(),		--[CreateDate],
 	'Thing 2',		--[Name],
 	'png',			--[Type],
@@ -301,6 +340,7 @@ INSERT INTO [dbo].[Thing] (
 INSERT INTO [dbo].[Thing] (
    [ID],
 	[Project],
+	[Archive],
    [CreateDate],
 	[Name],
 	[Type],
@@ -311,6 +351,7 @@ INSERT INTO [dbo].[Thing] (
 	) VALUES (
    3,					--[ID],
 	2,					--[Project],
+	0,					--Archive
    GETDATE(),		--[CreateDate],
 	'Thing 3',		--[Name],
 	'png',			--[Type],
@@ -319,6 +360,52 @@ INSERT INTO [dbo].[Thing] (
 	'Thing 3 Com',	--[Comment],
 	'Thing 3 Foc'	--[Focus]
 );
+INSERT INTO [dbo].[Thing] (
+   [ID],
+	[Project],
+	[Archive],
+   [CreateDate],
+	[Name],
+	[Type],
+	[Size],
+	[Desc],
+	[Comment],
+	[Focus]
+	) VALUES (
+   4,					--[ID],
+	2,					--[Project],
+	1,					--Archive
+   GETDATE(),		--[CreateDate],
+	'Thing 4',		--[Name],
+	'png',			--[Type],
+	400,				--[Size],
+	'Thing 4 Desc',--[Desc],
+	'Thing 4 Com',	--[Comment],
+	'Thing 4 Foc'	--[Focus]
+);
+INSERT INTO [dbo].[Thing] (
+   [ID],
+	[Project],
+	[Archive],
+   [CreateDate],
+	[Name],
+	[Type],
+	[Size],
+	[Desc],
+	[Comment],
+	[Focus]
+	) VALUES (
+   5,					--[ID],
+	3,					--[Project],
+	1,					--Archive
+   GETDATE(),		--[CreateDate],
+	'Thing 5',		--[Name],
+	'png',			--[Type],
+	500,				--[Size],
+	'Thing 5 Desc',--[Desc],
+	'Thing 5 Com',	--[Comment],
+	'Thing 5 Foc'	--[Focus]
+);
 SET IDENTITY_INSERT [dbo].[Thing] OFF
 GO
 -------------------------
@@ -326,6 +413,7 @@ SET IDENTITY_INSERT [dbo].[Version] ON
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -338,6 +426,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    1,						--[ID],
    1,						--[Thing],
+	0,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp1',				--[DisplayName],
 	'Name1',				--[Name],
@@ -351,6 +440,7 @@ INSERT INTO [dbo].[Version] (
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],			
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -363,6 +453,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    2,						--[ID],
    2,						--[Thing],
+	0,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp2',				--[DisplayName],
 	'Name2',				--[Name],
@@ -376,6 +467,7 @@ INSERT INTO [dbo].[Version] (
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -388,6 +480,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    3,						--[ID],
    2,						--[Thing],
+	0,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp3',				--[DisplayName],
 	'Name3',				--[Name],
@@ -401,6 +494,7 @@ INSERT INTO [dbo].[Version] (
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -413,6 +507,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    4,						--[ID],
    3,						--[Thing],
+	0,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp4',				--[DisplayName],
 	'Name4',				--[Name],
@@ -426,6 +521,7 @@ INSERT INTO [dbo].[Version] (
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -438,6 +534,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    5,						--[ID],
    3,						--[Thing],
+	0,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp5',				--[DisplayName],
 	'Name5',				--[Name],
@@ -451,6 +548,7 @@ INSERT INTO [dbo].[Version] (
 INSERT INTO [dbo].[Version] (
    [ID],
    [Thing],
+	[Archive],
    [CreateDate],
 	[DisplayName],
 	[Name],
@@ -463,6 +561,7 @@ INSERT INTO [dbo].[Version] (
 	) VALUES (
    6,						--[ID],
    3,						--[Thing],
+	1,						--Archive
    GETDATE(),			--[CreateDate],
 	'Disp6',				--[DisplayName],
 	'Name6',				--[Name],
@@ -471,6 +570,60 @@ INSERT INTO [dbo].[Version] (
 	600,					--[Size],
 	'Ver Disc 6',		--[Desc],
 	'Ver Com 6',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+	[Archive],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   7,						--[ID],
+   4,						--[Thing],
+	1,						--Archive
+   GETDATE(),			--[CreateDate],
+	'Disp7',				--[DisplayName],
+	'Name7',				--[Name],
+	'\\down\path7',	--[FullPath],
+	'type7',				--[FileType],
+	700,					--[Size],
+	'Ver Disc 7',		--[Desc],
+	'Ver Com 7',		--[Comment],
+	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
+);
+INSERT INTO [dbo].[Version] (
+   [ID],
+   [Thing],
+	[Archive],
+   [CreateDate],
+	[DisplayName],
+	[Name],
+	[FullPath],
+	[FileType],
+	[Size],
+	[Desc],
+	[Comment],
+	[Item]
+	) VALUES (
+   8,						--[ID],
+   5,						--[Thing],
+	1,						--Archive
+   GETDATE(),			--[CreateDate],
+	'Disp8',				--[DisplayName],
+	'Name8',				--[Name],
+	'\\down\path8',	--[FullPath],
+	'type7',				--[FileType],
+	800,					--[Size],
+	'Ver Disc 8',		--[Desc],
+	'Ver Com 8',		--[Comment],
 	CONVERT(VARBINARY(MAX), 0xabcfedf)			--[Item]
 );
 SET IDENTITY_INSERT [dbo].[Version] OFF
