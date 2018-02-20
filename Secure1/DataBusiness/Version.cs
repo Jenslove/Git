@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Runtime.Serialization;
+using System.Runtime.Serialization; 
 
 namespace Secure1.DataBusiness
 {
     public partial class Version
     {
-		// TODO: Add Version Removed flag field
-		public decimal Id { get; set; }
+        public decimal Id { get; set; }
         public decimal Thing { get; set; }
+        public bool Archive { get; set; }
         public DateTime CreateDate { get; set; }
         public string DisplayName { get; set; }
         public string Name { get; set; }

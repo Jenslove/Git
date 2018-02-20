@@ -26,12 +26,12 @@ namespace Secure1.DataBusiness
 		//					.Build();
 		//	//	optionsBuilder.UseSqlServer(@"Server=tcp:ia-sql-s-1.database.windows.net,1433;Initial Catalog=IA-DB-2;Persist Security Info=False;User ID=AppUser2;Password=Spot20!7_2;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=true");
 		//	optionsBuilder.UseSqlServer(configuration.GetConnectionString("BizConnection"));
-		//	}
+		//	} 
 		//}
 		public BizDbContext(DbContextOptions<BizDbContext> options)
-            : base(options)
-      {
+				: base(options) {
 		}
+
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -113,6 +113,11 @@ namespace Secure1.DataBusiness
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Organization).HasColumnType("numeric(18, 0)");
 
                 entity.Property(e => e.Type)
@@ -125,13 +130,13 @@ namespace Secure1.DataBusiness
                 entity.HasOne(d => d.OrganizationNavigation)
                     .WithMany(p => p.Project)
                     .HasForeignKey(d => d.Organization)
-                    .HasConstraintName("FK__Project__Organiz__5FB337D6");
+                    .HasConstraintName("FK__Project__Organiz__6BAEFA67");
 
                 entity.HasOne(d => d.UserNavigation)
                     .WithMany(p => p.Project)
                     .HasForeignKey(d => d.User)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Project__User__5EBF139D");
+                    .HasConstraintName("FK__Project__User__6ABAD62E");
             });
 
             modelBuilder.Entity<Thing>(entity =>
@@ -174,7 +179,7 @@ namespace Secure1.DataBusiness
                     .WithMany(p => p.Thing)
                     .HasForeignKey(d => d.Project)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Thing__Project__628FA481");
+                    .HasConstraintName("FK__Thing__Project__6F7F8B4B");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -310,7 +315,7 @@ namespace Secure1.DataBusiness
                 entity.HasOne(d => d.OrganizationNavigation)
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.Organization)
-                    .HasConstraintName("FK__User__Organizati__5BE2A6F2");
+                    .HasConstraintName("FK__User__Organizati__65F62111");
             });
 
             modelBuilder.Entity<Version>(entity =>
@@ -360,7 +365,7 @@ namespace Secure1.DataBusiness
                     .WithMany(p => p.Version)
                     .HasForeignKey(d => d.Thing)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Version__Thing__656C112C");
+                    .HasConstraintName("FK__Version__Thing__74444068");
             });
         }
     }

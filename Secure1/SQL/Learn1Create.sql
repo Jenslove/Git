@@ -1,4 +1,4 @@
-﻿USE [IA-DB-2];
+﻿USE [IA-DB-2];  
 GO
 -----------------------
 SET ANSI_NULLS ON;

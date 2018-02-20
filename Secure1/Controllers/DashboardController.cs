@@ -18,8 +18,7 @@ namespace Secure1.Controllers
 			_context = context;
 		}
 		// GET: Dashboard
-		public ActionResult Index()
-        {
+		public ActionResult Index() {
 			ViewData["Message"] = "Getting Dashboard working.";
 
 			var vu = _context.User
@@ -28,8 +27,8 @@ namespace Secure1.Controllers
 						.Where(u => u.Email == User.Identity.Name).First();
 			var model = vu;
 			return View(model);
-//			return View();
-        }
+			//			return View();
+		}
 
 		[HttpGet]
 		[Route("Dashboard/KOData")]
@@ -72,73 +71,57 @@ namespace Secure1.Controllers
 		}
 		#region OtherPrebuilt
 		// GET: Dashboard/Details/5
-		public ActionResult Details(int id)
-        {
-            return View();
-        }
+		public ActionResult Details(int id) {
+			return View();
+		}
 
-        // GET: Dashboard/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		// GET: Dashboard/Create
+		public ActionResult Create() {
+			return View();
+		}
 
-        // POST: Dashboard/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: Dashboard/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 
-        // GET: Dashboard/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+		// GET: Dashboard/Edit/5
+		public ActionResult Edit(int id) {
+			return View();
+		}
 
-        // POST: Dashboard/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: Dashboard/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 
-        // GET: Dashboard/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+		// GET: Dashboard/Delete/5
+		public ActionResult Delete(int id) {
+			return View();
+		}
 
-        // POST: Dashboard/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: Dashboard/Delete/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Delete(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 		#endregion
 	}
 }

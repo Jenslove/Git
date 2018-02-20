@@ -18,9 +18,8 @@ namespace Secure1.Controllers
 		public UploadController(BizDbContext context) {
 			_context = context;
 		}
-        // GET: Upload
-        public ActionResult Index()
-        {
+		// GET: Upload
+		public ActionResult Index() {
 			ViewData["Message"] = "Getting upload working.";
 
 			List<DataBusiness.Version> versionList = new List<DataBusiness.Version>();
@@ -31,7 +30,7 @@ namespace Secure1.Controllers
 			};
 
 			return View(model);
-        }
+		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -81,7 +80,7 @@ namespace Secure1.Controllers
 				foreach (var formFile in files) {
 					if (formFile.Length > 0) {
 						loc = formFile.FileName.LastIndexOf('\\');
-						fileName = formFile.FileName.Substring(loc+1);
+						fileName = formFile.FileName.Substring(loc + 1);
 						using (var memoryStream = new MemoryStream()) {
 							await formFile.CopyToAsync(memoryStream);
 							var version = new DataBusiness.Version {
@@ -129,77 +128,61 @@ namespace Secure1.Controllers
 			DataBusiness.Version downloadVersion = (from version in _context.Version
 																 where version.Id == fileID
 																 select version).First();
-			return File(downloadVersion.Item, downloadVersion.FileType,downloadVersion.Name);
+			return File(downloadVersion.Item, downloadVersion.FileType, downloadVersion.Name);
 		}
 		#region OtherPrebuilt
 		// GET: Upload/Details/5
-		public ActionResult Details(int id)
-        {
-            return View();
-        }
+		public ActionResult Details(int id) {
+			return View();
+		}
 
-        // GET: Upload/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		// GET: Upload/Create
+		public ActionResult Create() {
+			return View();
+		}
 
-        // POST: Upload/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: Upload/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 
-        // GET: Upload/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+		// GET: Upload/Edit/5
+		public ActionResult Edit(int id) {
+			return View();
+		}
 
-        // POST: Upload/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: Upload/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 
-        // GET: Upload/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+		// GET: Upload/Delete/5
+		public ActionResult Delete(int id) {
+			return View();
+		}
 
-        // POST: Upload/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-#endregion
+		// POST: Upload/Delete/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Delete(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
+		#endregion
 	}
 }
