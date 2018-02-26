@@ -40,13 +40,30 @@
 	background-color: #c1ffbf;
 }
 
+.tr-background {
+	background-color: #ff6e6e;
+}
+
+/********* User Plate ***/
+
+.div-user-plate-style {
+	padding: 4px 4px 4px 4px;
+	max-width: 600px;
+	background-color: #dfdbff;
+	border: 1px solid grey;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /********* Card Styles */
 
 .card-style {
 	background-color: #ebf2f2;
-	border: 1px solid black;
+	border: 1px solid #a6a3a0;
 	border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .card-header-style {
 	padding: 1px 1px 1px 1px;
 	background-color: #dfdbff;
@@ -54,6 +71,7 @@
 	border-radius: 8px;
 	height: 22px;
 }
+
 .card-text-style {
 	margin: 3px 3px 3px 3px;
 }
@@ -61,33 +79,69 @@
 /********* Card Table Styles */
 
 .th-title-style {
-	background: #50a3eb;
+	background: #7fb0f0;
 	color: #000;
 	text-align: center;
 }
+
 .tr-inner-table-bottom-style {
-	cursor: pointer;
 	border-bottom: 1px solid #50a3eb;
 	margin-bottom: 3px;
 }
+
 .tr-inner-table-items-bottom-style {
 	border-bottom: 1px solid #50a3eb;
 	margin-bottom: 3px;
 }
+
 .td-left-card-style {
 	min-width: 125px;
 	vertical-align: top;
 	text-align: left;
+	cursor: pointer;
 }
+
 .td-center-card-style {
 	vertical-align: top;
 	text-align: left;
 	padding-left: 3px;
+	cursor: pointer;
 }
-.td-right-card-style {
-	min-width: 50px;
+
+.td-left-card-version-style {
+	min-width: 125px;
 	vertical-align: top;
 	text-align: left;
+}
+
+.td-center-card-version-style {
+	vertical-align: top;
+	text-align: left;
+	padding-left: 3px;
+}
+
+.td-right-card-style {
+	min-width: 40px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.td-right-card-archive-style {
+	min-width: 40px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #ffafa3;
+}
+
+.a-small {
+	font-size: x-small;
+	cursor: pointer;
+}
+
+.a-small-archive {
+	font-size: x-small;
+	cursor: pointer;
+	color: #3d3d3d;
 }
 
 /********* Card Header Button Styles */
@@ -111,18 +165,16 @@
 	height: 18px;
 	width: 42px;
 }
-.myButton-sm:hover {
-	background-color: #2bb309;
-	border-color: #bdfaad;
-}
-.myButton-sm:active {
-	position: relative;
-	top: 1px;
-}
-.a-small {
-	font-size: x-small;
-	cursor: pointer;
-}
+
+	.myButton-sm:hover {
+		background-color: #2bb309;
+		border-color: #bdfaad;
+	}
+
+	.myButton-sm:active {
+		position: relative;
+		top: 1px;
+	}
 
 /****** Header checkbox slider ******/
 
@@ -132,6 +184,7 @@
 	vertical-align: top;
 	height: 16px;
 }
+
 .switch {
 	position: relative;
 	display: inline-block;
@@ -140,9 +193,11 @@
 	height: 16px;
 	margin-left: 3px;
 }
-.switch input {
-	display: none;
-}
+
+	.switch input {
+		display: none;
+	}
+
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -154,23 +209,27 @@
 	-webkit-transition: .4s;
 	transition: .4s;
 }
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 12px;
-	width: 12px;
-	left: 2px;
-	bottom: 2px;
-	background-color: #666;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 12px;
+		width: 12px;
+		left: 2px;
+		bottom: 2px;
+		background-color: #666;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
 input:checked + .slider {
-	background-color: #2bb309;
+	background-color: #ff6e6e;
 }
+
 input:focus + .slider {
 	box-shadow: 0 0 1px #2bb309;
 }
+
 input:checked + .slider:before {
 	-webkit-transform: translateX(8px);
 	-ms-transform: translateX(8px);
@@ -182,12 +241,16 @@ input:checked + .slider:before {
 .slider.round {
 	border-radius: 12px;
 }
-.slider.round:before {
-	border-radius: 50%;
-}
-.slider.round:hover {
-	border-radius: 12px;
-	background-color: #2bb309;
-}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+
+	.slider.round:hover {
+		border-radius: 12px;
+		background-color: #2bb309;
+	}
+
+/****** END Header checkbox slider */
 
 /****** END Header checkbox slider */

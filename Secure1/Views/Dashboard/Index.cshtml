@@ -5,7 +5,7 @@
 
 <div class="col-lg-12">
 	<div class="row" style="padding: 5px 3px 4px 3px; border-radius: 8px; margin-bottom:10px;">
-		<div style="padding: 4px 4px 4px 4px; max-width: 600px; background-color:#dfdbff; border: 1px solid grey; border-radius: 8px;">
+		<div class="div-user-plate-style">
 			<table>
 				<thead></thead>
 				<tbody>
@@ -32,10 +32,10 @@
 				<div class="card card-style">
 					<div class="card-header card-header-style">
 						<label class="switch" title="Show or Hide Deactive">
-							<input type="checkbox">
+							<input type="checkbox" data-bind="checked: projectArchived">
 							<span class="slider round"></span>
 						</label>
-						<span class="checkbox-sm-label">Show Deactive</span>
+						<span class="checkbox-sm-label">Show Archived</span>
 						<button class="myButton-sm" title="Add a Project">Add</button>
 					</div>
 					<div class="card-block">
@@ -43,12 +43,12 @@
 							<table style="width: 100%;">
 								<thead>
 									<tr>
-										<th class="th-title-style" colspan="2">User's Projects</th>
+										<th class="th-title-style" colspan="2">Projects</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: serverData().Project()">
-									<tr class="tr-inner-table-bottom-style" title="Select a Project to view it's Items" data-bind="click: function() { $root.selectProject($data) }, css: { 'selected': $root.SelectedProj() == $data } ">
-										<td>
+									<tr class="tr-inner-table-bottom-style" data-bind="visible: ((!$data.Archive()) || $root.projectArchived())">
+										<td data-bind="click: $root.selectProject.bind($data), css: { 'selected': $root.SelectedProj() == $data } ">
 											<div style="width: 100%;">
 												<table style="width: 100%;">
 													<tbody>
@@ -80,7 +80,9 @@
 												</table>
 											</div>
 										</td>
-										<td class="td-right-card-style"><a class="a-small">Deactivate</a></td>
+										<td class="td-right-card-style" data-bind="css: { 'td-right-card-archive-style': $data.Archive() } ">
+											<a id="projArchive" data-toggle="modal" data-target="#modalArchive" class="a-small" data-bind="click: $root.setArchiveData.bind($data), text: $data.Archive() ? 'Unarchive' : 'Archive', css: { 'a-small-archive': $data.Archive() } ">Archive</a>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -92,26 +94,26 @@
 				<div class="card card-style">
 					<div class="card-header card-header-style">
 						<label class="switch" title="Show or Hide Deactive">
-							<input type="checkbox">
+							<input type="checkbox" data-bind="checked: thingArchived">
 							<span class="slider round"></span>
 						</label>
-						<span class="checkbox-sm-label">Show Deactive</span>
+						<span class="checkbox-sm-label">Show Archived</span>
 						<button class="myButton-sm" title="Add a Project">Add</button>
 					</div>
 					<div class="card-block">
 						<div class="card-text card-text-style">
 
-							<strong class="card-title" data-bind="ifnot: SelectedProj">No Project is selected</strong>
-							<table data-bind="visible: SelectedProj" style="width: 100%;">
+							<strong class="card-title" data-bind="visible: !SelectedProj()">No Project is selected</strong>
+							<table data-bind="visible: SelectedProj()" style="width: 100%;">
 								<thead>
 									<tr>
 										<th class="th-title-style" colspan="2">Project's Items</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: things()">
-									<tr class="tr-inner-table-bottom-style" title="Select Item to view it's Versions" data-bind="click: function() { $root.selectThing($data) }, css: { 'selected': $root.SelectedThing() == $data } ">
+									<tr class="tr-inner-table-bottom-style" data-bind="visible: ((!$data.Archive()) || $root.thingArchived())">
 
-										<td>
+										<td data-bind="click: $root.selectThing.bind($data), css: { 'selected': $root.SelectedThing() == $data } ">
 											<div style="width: 100%;">
 												<table style="width: 100%;">
 													<tbody>
@@ -143,7 +145,9 @@
 												</table>
 											</div>
 										</td>
-										<td class="td-right-card-style"><a class="a-small">Deactivate</a></td>
+										<td class="td-right-card-style" data-bind="css: { 'td-right-card-archive-style': $data.Archive() } ">
+											<a id="thingArchive" data-toggle="modal" data-target="#modalArchive" class="a-small" data-bind="click: $root.setArchiveData.bind($data), text: $data.Archive() ? 'Unarchive' : 'Archive', css: { 'a-small-archive': $data.Archive() } ">Archive</a>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -155,49 +159,49 @@
 				<div class="card card-style">
 					<div class="card-header card-header-style">
 						<label class="switch" title="Show or Hide Deactive">
-							<input type="checkbox">
+							<input type="checkbox" data-bind="checked: versionArchived">
 							<span class="slider round"></span>
 						</label>
-						<span class="checkbox-sm-label">Show Deactive</span>
+						<span class="checkbox-sm-label">Show Archived</span>
 						<button class="myButton-sm" title="Add a Project">Add</button>
 					</div>
 					<div class="card-block">
 						<div class="card-text card-text-style">
 
-							<strong class="card-title" data-bind="ifnot: SelectedThing">No Thing is selected</strong>
-							<table data-bind="visible: SelectedThing" style="width: 100%;">
+							<strong class="card-title" data-bind="visible: !SelectedThing()">No Thing is selected</strong>
+							<table data-bind="visible: SelectedThing()" style="width: 100%;">
 								<thead>
 									<tr>
 										<th class="th-title-style" colspan="2">Item's Versions</th>
 									</tr>
 								</thead>
 								<tbody data-bind="foreach: versions()">
-									<tr class="tr-inner-table-items-bottom-style">
+									<tr class="tr-inner-table-items-bottom-style" data-bind="visible: ((!$data.Archive()) || $root.versionArchived())">
 										<td>
 											<div style="width: 100%;">
 												<table style="width: 100%;">
 													<tbody>
 														<tr>
-															<td class="td-left-card-style">
+															<td class="td-left-card-version-style">
 																<b>Name: </b><span data-bind="text: $data.Name()"></span>
 															</td>
-															<td class="td-center-card-style">
+															<td class="td-center-card-version-style">
 																<b>Created: </b><span data-bind="text: $data.CreateDate()"></span>
 															</td>
 														</tr>
 														<tr>
-															<td class="td-left-card-style">
+															<td class="td-left-card-version-style">
 																<b>File Type: </b><span data-bind="text: $data.FileType()"></span>
 															</td>
-															<td class="td-center-card-style">
+															<td class="td-center-card-version-style">
 																<b>Size: </b><span data-bind="text: $data.Size()"></span>
 															</td>
 														</tr>
 														<tr>
-															<td class="td-left-card-style">
+															<td class="td-left-card-version-style">
 																<b>Desc: </b><span data-bind="text: $data.Desc()"></span>
 															</td>
-															<td class="td-center-card-style">
+															<td class="td-center-card-version-style">
 																<b>Comment: </b><span data-bind="text: $data.Comment()"></span>
 															</td>
 														</tr>
@@ -205,7 +209,9 @@
 												</table>
 											</div>
 										</td>
-										<td class="td-right-card-style"><a class="a-small">Deactivate</a></td>
+										<td data-bind="css: { 'td-right-card-archive-style': $data.Archive() } ">
+											<a id="projArchive" data-toggle="modal" data-target="#modalArchive" class="a-small" data-bind="click: $root.setArchiveData.bind($data), text: $data.Archive() ? 'Unarchive' : 'Archive', css: { 'a-small-archive': $data.Archive() } ">Archive</a>
+										</td>
 
 									</tr>
 								</tbody>
@@ -216,6 +222,52 @@
 			</div>
 		</div>
 	</div>
+
+	<section id="modalArchive" class="modal fade" tabindex="-1" data-width="760">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" data-bind="text: $root.archiveBool() ? 'UNARCHIVE' : 'ARCHIVE'"></h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-body">
+						<div class="form-group" data-bind="with: archiveData">
+
+							<div>
+								<p>
+									You are going to <span data-bind="text: Archive() ? 'Unarchive' : 'Archive'"></span> <span data-bind="text: Name()"></span>?
+								</p>
+							</div>
+							<div>
+								<p>
+									<span data-bind="text: Archive() ? 'This will change the Archived Flag to False so that this will now display normally.' : 'This will change the Archived Flag to True so that this will no longer be displayed normally. Remember, nothing is ever deleted from you account. If you continue this will only display when Show Archived is turned on.'"></span>
+								</p>
+							</div>
+							<div>
+								<p>
+									Click the <span data-bind="text: Archive() ? 'UNARCHIVE' : 'ARCHIVE'"></span> Button below to continue with this change.
+								</p>
+							</div>
+							<p>
+								Click the Cancel Button to return without any changes being completed.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					<button type="button" class="btn blue" data-bind="text: $root.archiveBool() ? 'UNARCHIVE' : 'ARCHIVE'"></button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr />
+	<footer>
+		<p>&copy; 2017 - Secure1</p>
+	</footer>
+</div>
 
 	@section Scripts {
 		<script src="~/js/site.js"></script>
@@ -229,8 +281,13 @@ function koMapModel() {
 	self.versions = ko.observable(undefined);
 	self.SelectedProj = ko.observable(undefined);
 	self.SelectedThing = ko.observable(undefined);
+	self.projectArchived = ko.observable(false);
+	self.thingArchived = ko.observable(false);
+	self.versionArchived = ko.observable(false);
+	self.archiveData = ko.observable(undefined);
+	self.archiveBool = ko.observable(false);
 
-		self.serverData = ko.observable(ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))));
+	self.serverData = ko.observable(ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))));
 
 	self.selectProject = function (Proj) {
 		self.SelectedProj(Proj);
@@ -242,7 +299,13 @@ function koMapModel() {
 		self.SelectedThing(Thing);
 		self.versions(Thing.Version);
 	};
+
+	self.setArchiveData = function (data) {
+		self.archiveData(data);
+		self.archiveBool(data.Archive());
+	};
 }
+
 ko.applyBindings(new koMapModel());
 
 		</script>
