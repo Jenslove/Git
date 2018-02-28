@@ -255,9 +255,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" data-bind="with: archiveData">
 					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-					<button type="button" class="btn blue" data-bind="text: $root.archiveBool() ? 'UNARCHIVE' : 'ARCHIVE'"></button>
+					<button type="button" class="btn blue" data-bind="click: $root.saveArchiveFlag.bind(), text: Archive() ? 'UNARCHIVE' : 'ARCHIVE'"></button>
 				</div>
 			</div>
 		</div>
@@ -265,6 +265,7 @@
 
 	<hr />
 	<footer>
+		<span id="theData" data-bind="text: testText"></span>
 		<p>&copy; 2017 - Secure1</p>
 	</footer>
 </div>
@@ -281,11 +282,13 @@ function koMapModel() {
 	self.versions = ko.observable(undefined);
 	self.SelectedProj = ko.observable(undefined);
 	self.SelectedThing = ko.observable(undefined);
+	self.saveArchiveFlag = ko.observable(undefined);
 	self.projectArchived = ko.observable(false);
 	self.thingArchived = ko.observable(false);
 	self.versionArchived = ko.observable(false);
 	self.archiveData = ko.observable(undefined);
-	self.archiveBool = ko.observable(false);
+			self.archiveBool = ko.observable(false);
+			self.testText = ko.observable(undefined);
 
 	self.serverData = ko.observable(ko.mapping.fromJS(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))));
 
@@ -304,6 +307,21 @@ function koMapModel() {
 		self.archiveData(data);
 		self.archiveBool(data.Archive());
 	};
+
+			self.saveArchiveFlag = function (inData) {
+				var tmp = ko.toJS(inData);
+				self.testText(tmp.Id);
+		$.ajax({
+			url: "../Dashboard/SaveArchive",
+			type: "POST",
+			dataType: 'json',
+			contentType: "Application/json",
+			data: JSON.stringify({ InType: "Project12", Id: tmp.Id, Archive: tmp.Archive }),
+			success: function (response) {
+				inData.Archive = !inData.Archive;
+			}
+		});
+	}
 }
 
 ko.applyBindings(new koMapModel());

@@ -49,26 +49,42 @@ namespace Secure1.Controllers
 			return new JsonResult(vu);
 		}
 
-		[HttpGet]
-		[Route("Dashboard/KOData2")]
-		public object KOData2() {
-			//var x = 1;
-			var vu = _context.User
-						//.Include(o => o.OrganizationNavigation)
-						//.Include(p => p.Project).ThenInclude(t => t.Thing)//.ThenInclude(v => v.Version)
-						.Where(u => u.Email == User.Identity.Name).First();
-			//var ve = from u in _context.User
-			//			join p in _context.Project on u.Id equals p.User
-			//			join t in _context.Thing on p.Id equals t.Project
-			//			join v in _context.Version on t.Id equals v.Thing
-			//			select new { Id = v.Id, Thing = v.Thing, CreateDate = v.CreateDate, DisplayName = v.DisplayName, Name = v.Name, FullPath = v.FullPath, FileType = v.FileType, Size = v.Size, Desc = v.Desc, Comment = v.Comment };
+		//[HttpGet]
+		//[Route("Dashboard/KOData2")]
+		//public object KOData2() {
+		//	//var x = 1;
+		//	var vu = _context.User
+		//				//.Include(o => o.OrganizationNavigation)
+		//				//.Include(p => p.Project).ThenInclude(t => t.Thing)//.ThenInclude(v => v.Version)
+		//				.Where(u => u.Email == User.Identity.Name).First();
+		//	//var ve = from u in _context.User
+		//	//			join p in _context.Project on u.Id equals p.User
+		//	//			join t in _context.Thing on p.Id equals t.Project
+		//	//			join v in _context.Version on t.Id equals v.Thing
+		//	//			select new { Id = v.Id, Thing = v.Thing, CreateDate = v.CreateDate, DisplayName = v.DisplayName, Name = v.Name, FullPath = v.FullPath, FileType = v.FileType, Size = v.Size, Desc = v.Desc, Comment = v.Comment };
 
-			//var jvu = new JsonResult(vu);
-			////var j = new JsonResult(vu);
-			////return j.ToString();
-			//return vu;
-			return new JsonResult(vu);
+		//	//var jvu = new JsonResult(vu);
+		//	////var j = new JsonResult(vu);
+		//	////return j.ToString();
+		//	//return vu;
+		//	return new JsonResult(vu);
+		//}
+
+		[HttpPost]
+		[Route("Dashboard/SaveArchive")]
+		public bool SaveArchive([FromBody] Models.BusinessViewModels.ArchiveInbound inData) {
+			try {
+				var x = inData;
+				var project = _context.Project
+									.Where(p => p.Id == inData.Id).First();
+				project.Archive = !inData.Archive;
+				_context.SaveChanges();
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
 		}
+
 		#region OtherPrebuilt
 		// GET: Dashboard/Details/5
 		public ActionResult Details(int id) {
